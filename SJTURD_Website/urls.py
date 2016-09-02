@@ -16,8 +16,10 @@ Including another URLconf
 from django.conf.urls import url, include
 
 # from django.contrib import admin
+import main.views
 
 urlpatterns = [
+    url(r'^$', main.views.index),
     url(r'^user/', include('user.urls')),
     url(r'^lost/', include('lost.urls')),
     url(r'^found/', include('found.urls')),
