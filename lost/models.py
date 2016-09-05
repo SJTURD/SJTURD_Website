@@ -6,7 +6,7 @@ class Lost(models.Model):
     user = models.ForeignKey('user.UserExt', on_delete=models.CASCADE, default=1)
     category = models.ForeignKey('main.Category', on_delete=models.SET_DEFAULT, default=1)
     location = models.ForeignKey('main.Location', on_delete=models.SET_DEFAULT, default=1)
-    picture = models.ImageField(upload_to='/static/user_upload_img', null=True, blank=True, default=None)
+    picture = models.ImageField(upload_to='lost', null=True, blank=True, default=None)
     detail = models.CharField(max_length=256, blank=True)
 
     phone = models.CharField(max_length=32, blank=True,
