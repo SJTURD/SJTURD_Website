@@ -23,16 +23,16 @@ class UserExt(models.Model):
         (4, '教职工'),
     )
 
-    jaccount = models.CharField(max_length=256, unique=True, blank=True)
-    name = models.CharField(max_length=128, blank=True)
+    jaccount = models.CharField(max_length=256, unique=True, null=True)
+    name = models.CharField(max_length=128, null=True)
     gender = models.SmallIntegerField(blank=True, choices=GENDER_CHOICES)
-    email = models.CharField(max_length=128, unique=True, blank=True)
-    phone = models.CharField(max_length=32, unique=True, blank=True,
+    email = models.CharField(max_length=128, unique=True, null=True)
+    phone = models.CharField(max_length=32, unique=True, null=True,
                              validators=[RegexValidator(regex=r'1\d{10}',
                                                         message='手机号码不合法', code='Invalid phone number')])
-    type = models.SmallIntegerField(blank=True, choices=TYPE_CHOICES)
+    type = models.SmallIntegerField(choices=TYPE_CHOICES, default=0)
 
     score = models.IntegerField(default=0, blank=False)
     money = models.IntegerField(default=0, blank=False)
 
-    wechat = models.CharField(max_length=256, unique=True, blank=True)
+    wechat = models.CharField(max_length=256, unique=True, null=True)
