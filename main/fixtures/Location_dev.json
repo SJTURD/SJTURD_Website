@@ -1,0 +1,23 @@
+[
+  {
+    "model": "main.Location",
+    "pk": 1,
+    "fields": {
+      "name": "Loc1"
+    }
+  },
+  {
+    "model": "main.Location",
+    "pk": 2,
+    "fields": {
+      "name": "Loc2"
+    }
+  },
+  {
+    "model": "main.Location",
+    "pk": 3,
+    "fields": {
+      "name": "Loc3"
+    }
+  }
+]

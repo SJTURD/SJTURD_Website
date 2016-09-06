@@ -42,3 +42,8 @@ React 15.3.1
   ```Bash
   python manage.py migrate
   ```
+  
+* If you need any test data:
+  ```Bash
+  python manage.py loaddata [FIXTURE_NAME]
+  ```

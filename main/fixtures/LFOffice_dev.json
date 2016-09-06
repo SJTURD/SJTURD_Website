@@ -1,0 +1,25 @@
+[
+  {
+    "model": "main.LFOffice",
+    "pk": 1,
+    "fields": {
+      "name": "LF1"
+    }
+  },
+  {
+    "model": "main.LFOffice",
+    "pk": 2,
+    "fields": {
+      "name": "LF2",
+      "detail": "what"
+    }
+  },
+  {
+    "model": "main.LFOffice",
+    "pk": 3,
+    "fields": {
+      "name": "LF3",
+      "contact": "how"
+    }
+  }
+]
