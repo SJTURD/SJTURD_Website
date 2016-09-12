@@ -1,0 +1,27 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>丢丢仓库 - 交大丢丢</title>
+  <script type="text/javascript" src="{% static "js/react.min.js" %}"></script>
+  <script type="text/javascript" src="{% static "js/react-dom.min.js" %}"></script>
+  <script type="text/javascript" src="{% static "js/browser.min.js" %}"></script>
+  <script type="text/javascript" src="{% static "js/jquery-3.1.0.min.js" %}"></script>
+</head>
+<body>
+  <h1>上传拾物信息</h1>
+  <div id="category-selector"></div>
+  <div id="found-location-selector"></div>
+  <div id="deposit-location-selector"></div>
+  <div id="item-image"></div>
+  <div id="email"></div>
+  <div id="content"></div>
+  <div id="page-selector"></div>
+  <script type="text/javascript">
+    var MEDIA_URL = "{{MEDIA_URL}}";
+  </script>
+  <script type="text/babel" src="{% static "js/lost_list.js" %}"></script>
+</body>
+</html>
