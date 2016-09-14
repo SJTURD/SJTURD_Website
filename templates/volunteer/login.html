@@ -1,0 +1,26 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>丢丢仓库 - 交大丢丢</title>
+  <script type="text/javascript" src="{% static "js/react.min.js" %}"></script>
+  <script type="text/javascript" src="{% static "js/react-dom.min.js" %}"></script>
+  <script type="text/javascript" src="{% static "js/browser.min.js" %}"></script>
+  <script type="text/javascript" src="{% static "js/jquery-3.1.0.min.js" %}"></script>
+</head>
+<body>
+  <h1>志愿者登录</h1>
+  <div id="content" class="wrapper">
+  <form action="/api/login/" method="POST">
+    <label for="username">账号</label><input type="text" name="username">
+    <label for="username">密码</label><input type="password" name="username">
+    <button type="submit">登录</button>
+  </form>
+    <!-- <a href="volunteer/upload/" class="vol-btn">批量上传</a> -->
+    <!-- <a href="volunteer/retrieve/" class="vol-btn">认领操作</a> -->
+  </div>
+
+</body>
+</html>
