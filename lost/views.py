@@ -43,4 +43,14 @@ def match_found_items(request):
 
     return HttpResponse(serializers.serialize('json', data), content_type="application/json")
 
+
 def match_result(request):
+    pass
+
+
+def get_lost_items(request):
+    pass
+
+
+def match(request):
+    pass
