@@ -6,6 +6,7 @@ from django.shortcuts import render
 from django.conf import settings
 
 from .models import Found
+from main.models import Category, Location
 
 
 def items(request):
@@ -16,10 +17,40 @@ def items(request):
     return render(request, 'found/items.html', context)
 
 
+def get_categories(request):
+    data = Category.objects.all()
+    data = [{'pk': cat['pk'], 'name': cat['fields']['name']} for cat in json.loads(serializers.serialize('json', data))]
+    data = [{'pk': 0, 'name': 'ALL'}] + data
+
+    data = {
+        'data': data
+    }
+
+    return JsonResponse(data)
+
+
+def get_locations(request):
+    data = Location.objects.all()
+    data = [{'pk': loc['pk'], 'name': loc['fields']['name']} for loc in json.loads(serializers.serialize('json', data))]
+    data = [{'pk': 0, 'name': 'ALL'}] + data
+
+    data = {
+        'data': data
+    }
+
+    return JsonResponse(data)
+
+
 def get_found_items(request):
     ITEMS_PER_PAGE = 10
 
-    data = []
+    data = {
+        'founds': '[]',
+        'page': 1,
+        'category': 0,
+        'location': 0,
+        'end_of_list': True,
+    }
 
     if not request.is_ajax():
         return HttpResponse(serializers.serialize('json', data), content_type="application/json")
@@ -37,6 +68,13 @@ def get_found_items(request):
         data = data.filter(location=location)
 
     if len(data) == 0:
+        data = {
+            'founds': '[]',
+            'page': 1,
+            'category': 0,
+            'location': 0,
+            'end_of_list': True,
+        }
         return HttpResponse(serializers.serialize('json', data), content_type="application/json")
 
     if page <= 0:
@@ -50,7 +88,8 @@ def get_found_items(request):
         end_of_list = True
 
     data = {
-        'founds': json.loads(serializers.serialize('json', data[page * ITEMS_PER_PAGE - ITEMS_PER_PAGE:page * ITEMS_PER_PAGE])),
+        'founds': json.loads(serializers.serialize('json',
+                                                   data[page * ITEMS_PER_PAGE - ITEMS_PER_PAGE:page * ITEMS_PER_PAGE])),
         'page': page,
         'category': category,
         'location': location,

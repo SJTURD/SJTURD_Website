@@ -5,16 +5,17 @@
 <head>
   <meta charset="UTF-8">
   <title>丢丢仓库 - 交大丢丢</title>
-  <script type="text/javascript" src="{% static "js/react.min.js" %}"></script>
-  <script type="text/javascript" src="{% static "js/react-dom.min.js" %}"></script>
-  <script type="text/javascript" src="{% static "js/browser.min.js" %}"></script>
-  <script type="text/javascript" src="{% static "js/jquery-3.1.0.min.js" %}"></script>
+  <script type="text/javascript" src="{% static "js/react.js" %}"></script>
+  <script type="text/javascript" src="{% static "js/react-dom.js" %}"></script>
+  <script type="text/javascript" src="{% static "js/browser.js" %}"></script>
+  <script type="text/javascript" src="{% static "js/jquery-3.1.0.js" %}"></script>
 </head>
 <body>
   <h1>丢丢仓库</h1>
-  <div id="category-selector"></div>
-  <div id="location-selector"></div>
   <div id="content">
+    <div id="category-selector"></div>
+    <div id="location-selector"></div>
+    <div id="found-list"></div>
     <div id="page-selector"></div>
   </div>
   <script type="text/javascript">

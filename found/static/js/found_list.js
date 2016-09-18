@@ -1,3 +1,87 @@
+var CategorySelector = React.createClass({
+  loadCategoriesFromServer: function() {
+    $.ajax({
+      url: this.props.url,
+      data: {},
+      dataType: 'json',
+      cache: false,
+      success: function(data) {
+        this.setState({
+          categories: data.data
+        });
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+
+  getInitialState: function() {
+    return {
+      categories: []
+    };
+  },
+
+  componentDidMount: function() {
+    this.loadCategoriesFromServer();
+  },
+
+  render: function() {
+    var categoryNodes = this.state.categories.map(function(cat, swCat=this.props.switchCategory.bind(cat.pk)) {
+      return (
+        React.createElement('option', {value: cat.pk, onClick: swCat}, cat.name)
+      )
+    });
+    return (
+      <select>
+        {categoryNodes}
+      </select>
+    )
+  }
+});
+
+var LocationSelector = React.createClass({
+  loadLocationsFromServer: function() {
+    $.ajax({
+      url: this.props.url,
+      data: {},
+      dataType: 'json',
+      cache: false,
+      success: function(data) {
+        this.setState({
+          locations: data.data
+        });
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+
+  getInitialState: function() {
+    return {
+      locations: []
+    };
+  },
+
+  componentDidMount: function() {
+    this.loadLocationsFromServer();
+  },
+
+  render: function() {
+    var locationNodes = this.state.locations.map(function(loc, swLoc=this.props.switchLocation.bind(loc.pk)) {
+      return (
+        React.createElement('option', {value: loc.pk, onClick: swLoc}, loc.name)
+      )
+    });
+    return (
+      <select>
+        {locationNodes}
+      </select>
+    )
+  }
+});
+
 var FoundList = React.createClass({
   render: function() {
     var foundNodes = this.props.data.map(function(found) {
@@ -96,6 +180,14 @@ var FoundBox = React.createClass({
     this.loadFoundsFromServer();
   },
 
+  switchCategory: function(i=0) {
+    this.loadFoundsFromServer(1, i, this.state.location);
+  },
+
+  switchLocation: function(i=0) {
+    this.loadFoundsFromServer(1, this.state.category, i);
+  },
+
   prevPage: function() {
     --this.state.page;
     this.loadFoundsFromServer(this.state.page, this.state.category, this.state.location);
@@ -109,6 +201,8 @@ var FoundBox = React.createClass({
   render: function() {
     return (
       <div className="foundBox">
+        <CategorySelector url="api/getCategories" switchCategory={this.switchCategory} />
+        <LocationSelector url="api/getLocations" switchLocation={this.switchLocation} />
         <FoundList data={this.state.founds} />
         <PageSelector data={{
           page: this.state.page,
