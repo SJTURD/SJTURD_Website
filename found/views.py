@@ -1,5 +1,7 @@
+import json
+
 from django.core import serializers
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.conf import settings
 
@@ -37,9 +39,22 @@ def get_found_items(request):
     if len(data) == 0:
         return HttpResponse(serializers.serialize('json', data), content_type="application/json")
 
-    if not page * ITEMS_PER_PAGE - ITEMS_PER_PAGE < len(data) <= page * ITEMS_PER_PAGE:
+    if page <= 0:
+        page = 1
+
+    if len(data) <= page * ITEMS_PER_PAGE - ITEMS_PER_PAGE:
         page = (len(data) - 1) / ITEMS_PER_PAGE + 1
 
-    data = data[page * ITEMS_PER_PAGE - ITEMS_PER_PAGE:page * ITEMS_PER_PAGE]
+    end_of_list = False
+    if page * ITEMS_PER_PAGE - ITEMS_PER_PAGE < len(data) <= page * ITEMS_PER_PAGE:
+        end_of_list = True
 
-    return HttpResponse(serializers.serialize('json', data), content_type="application/json")
+    data = {
+        'founds': json.loads(serializers.serialize('json', data[page * ITEMS_PER_PAGE - ITEMS_PER_PAGE:page * ITEMS_PER_PAGE])),
+        'page': page,
+        'category': category,
+        'location': location,
+        'end_of_list': end_of_list,
+    }
+
+    return JsonResponse(data)
