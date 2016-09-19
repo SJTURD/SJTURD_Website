@@ -1,9 +1,12 @@
+import json
+
 from django.core import serializers
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.conf import settings
 
 from .models import Lost
+from main.models import Category, Location
 
 
 def items(request):
@@ -13,7 +16,8 @@ def items(request):
 
     return render(request, 'lost/items.html', context)
 
-def match_found_items(request):
+
+def get_lost_items(request):
     ITEMS_PER_PAGE = 10
 
     data = []
@@ -44,13 +48,12 @@ def match_found_items(request):
     return HttpResponse(serializers.serialize('json', data), content_type="application/json")
 
 
-def match_result(request):
+def new_lost(request):
     pass
 
 
-def get_lost_items(request):
-    pass
-
-
-def match(request):
-    pass
+def found_list(request):
+    context = {
+        'MEDIA_URL': settings.MEDIA_URL
+    }
+    return render(request, 'lost/checklist.html', context)
