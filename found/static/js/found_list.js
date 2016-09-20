@@ -27,13 +27,13 @@ var CategorySelector = React.createClass({
   },
 
   render: function() {
-    var categoryNodes = this.state.categories.map(function(cat, swCat=this.props.switchCategory.bind(cat.pk)) {
+    var categoryNodes = this.state.categories.map(function(cat) {
       return (
-        React.createElement('option', {value: cat.pk, onClick: swCat}, cat.name)
+        React.createElement('option', {value: cat.pk}, cat.name)
       )
-    });
+    }.bind(this));
     return (
-      <select>
+      <select id="category-selector" onChange={this.props.switchCategory}>
         {categoryNodes}
       </select>
     )
@@ -69,13 +69,13 @@ var LocationSelector = React.createClass({
   },
 
   render: function() {
-    var locationNodes = this.state.locations.map(function(loc, swLoc=this.props.switchLocation.bind(loc.pk)) {
+    var locationNodes = this.state.locations.map(function(loc) {
       return (
-        React.createElement('option', {value: loc.pk, onClick: swLoc}, loc.name)
+        React.createElement('option', {value: loc.pk}, loc.name)
       )
-    });
+    }.bind(this));
     return (
-      <select>
+      <select id="location-selector" onChange={this.props.switchLocation}>
         {locationNodes}
       </select>
     )
@@ -180,12 +180,16 @@ var FoundBox = React.createClass({
     this.loadFoundsFromServer();
   },
 
-  switchCategory: function(i=0) {
-    this.loadFoundsFromServer(1, i, this.state.location);
+  switchCategory: function() {
+    var i = document.getElementById("category-selector");
+    var v = i.options[i.selectedIndex].value;
+    this.loadFoundsFromServer(1, v, this.state.location);
   },
 
-  switchLocation: function(i=0) {
-    this.loadFoundsFromServer(1, this.state.category, i);
+  switchLocation: function() {
+    var i = document.getElementById("location-selector");
+    var v = i.options[i.selectedIndex].value;
+    this.loadFoundsFromServer(1, this.state.category, v);
   },
 
   prevPage: function() {

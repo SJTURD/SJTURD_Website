@@ -45,7 +45,7 @@ def get_found_items(request):
     ITEMS_PER_PAGE = 10
 
     data = {
-        'founds': '[]',
+        'founds': [],
         'page': 1,
         'category': 0,
         'location': 0,
@@ -53,7 +53,7 @@ def get_found_items(request):
     }
 
     if not request.is_ajax():
-        return HttpResponse(serializers.serialize('json', data), content_type="application/json")
+        return JsonResponse(data)
 
     params = request.GET
 
@@ -69,13 +69,13 @@ def get_found_items(request):
 
     if len(data) == 0:
         data = {
-            'founds': '[]',
+            'founds': [],
             'page': 1,
-            'category': 0,
-            'location': 0,
+            'category': category,
+            'location': location,
             'end_of_list': True,
         }
-        return HttpResponse(serializers.serialize('json', data), content_type="application/json")
+        return JsonResponse(data)
 
     if page <= 0:
         page = 1
