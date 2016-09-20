@@ -57,3 +57,17 @@ def found_list(request):
         'MEDIA_URL': settings.MEDIA_URL
     }
     return render(request, 'lost/checklist.html', context)
+
+
+def upload_lost_item(request):
+    context = {
+        'MEDIA_URL': settings.MEDIA_URL
+    }
+    return render(request, 'lost/uploadLostItem.html', context)
+
+
+def upload_result(request):
+    context = {
+        'MEDIA_URL': settings.MEDIA_URL
+    }
+    return render(request, 'lost/uploadResult.html', context)
