@@ -4,8 +4,8 @@ from . import views
 
 
 urlpatterns = [
-    url(r'^login/$', views.login_view, name="vol login view"),
-    url(r'^index/$', views.index, name="vol index"),
+    url(r'^login/$', views.login, name="vol login view"),
+    url(r'^index/$', views.index_init, name="vol index"),
     url(r'^upload/$', views.upload_view, name="vol upload view"),
     # url(r'^retrieve$', views.retrieve_view, name = "vol retrieve view"),
     url(r'^api/login', views.login, name="vol login"),

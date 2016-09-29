@@ -4,6 +4,8 @@ class Volunteer(models.Model):
 	volunteer_id=models.IntegerField(default=0)
 	name=models.CharField(max_length=200)
 	password=models.CharField(max_length=200)
+	def __unicode__(self):
+		return self.name
 
 class LostItem(models.Model):
 	item_id=models.IntegerField(default=0)
@@ -13,3 +15,6 @@ class LostItem(models.Model):
 	owner=models.CharField(max_length=200)
 	contact=models.CharField(max_length=200)
 	status=models.IntegerField(default=0) #0:Finding 1:Found
+	img=models.FileField(upload_to='./lost/')
+	def __unicode__(self):
+		return self.category
