@@ -3,27 +3,17 @@ from django.conf import settings
 from django.core import serializers
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
-from django.shortcuts import render_to_response 
-
-from database.models import *
-from django.template import RequestContext
-
 
 
 def index(request):
-    if 'username' not in request.session:
-        return login_view(request)
-    q=Volunteer.objects.get(volunteer_id=1)
-    request.session['aaa']='username' in request.session
-    return render_to_response('volunteer/index.html',{"aaa":request.session['aaa']})
+    return render(request, 'volunteer/index.html')
 
 
 def login_view(request):
     # if request.user.is_authenticated:
-    # if True:
-        # return redirect('/volunteer/index',{'aaa':1})
-    return render_to_response('volunteer/login.html',{"aaa":'1'})
-    # return render(request, 'volunteer/login.html')
+    if True:
+        return redirect('/volunteer/index')
+    return render(request, 'volunteer/login.html')
 
 
 # just a api, return message on whether it's logged in.
@@ -32,21 +22,11 @@ def login(request):
     password = request.POST['password']
     # user = authenticate(username=username, password=password)
     # if user is not None:
-    # if True:
+    if True:
         # login(request, user)
-    error_message = {'message':"Wrong user or password!"}
-    context={}
-    tmp=Volunteer.objects.filter(name=username)
-    if len(tmp)>0:
-        if tmp[0].password==password:
-            return render_to_response('volunteer/index.html',context)
-        else:
-            return render_to_response('volunteer/login.html',error_message)
+        return True
     else:
-        return render_to_response('volunteer/login.html',error_message)
-        # return HttpResponseRedirect('/')
-    # else:
-        # return False
+        return False
 
     # def retrieve_view(request):
     # acutally it's just the same as in LOST!
@@ -58,7 +38,7 @@ def upload_view(request):
     context = {
         'MEDIA_URL': settings.MEDIA_URL
     }
-    return render(request, "volunteer/upload.html", {"aaa":request.session['aaa']})
+    return render(request, "volunteer/upload.html", context)
 
 
 def upload(request):

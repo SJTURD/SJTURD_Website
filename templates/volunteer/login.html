@@ -13,12 +13,13 @@
 <body>
   <h1>志愿者登录</h1>
   <div id="content" class="wrapper">
-  <form action="/volunteer/api/login/" method="POST">
+  <form action="/api/login/" method="POST">
     <label for="username">账号</label><input type="text" name="username">
-    <label for="password">密码</label><input type="password" name="password">
+    <label for="username">密码</label><input type="password" name="username">
     <button type="submit">登录</button>
   </form>
-  {{message}}
+    <!-- <a href="volunteer/upload/" class="vol-btn">批量上传</a> -->
+    <!-- <a href="volunteer/retrieve/" class="vol-btn">认领操作</a> -->
   </div>
 
 </body>
