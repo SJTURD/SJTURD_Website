@@ -1,14 +1,21 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-  <meta charset="UTF-8">
-  <title>交大丢丢 - 首页</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}
+  首页
+{% endblock %}
+
+{% block topbar-title %}
+  首页
+{% endblock %}
+
+{% block content %}
   <a href="/lost/newLost">我是失主</a><br>
   <a href="/found/newFound">我是拾主</a><br>
   <a href="/found/items">丢丢仓库</a><br>
   <a href="/lost/items">招领启事</a><br>
-  <a href="/volunteer/login">志愿者登录</a><br>
+  <a href="/volunteer/index">我是志愿者</a><br>
 </body>
 </html>
+
+{% endblock %}
+

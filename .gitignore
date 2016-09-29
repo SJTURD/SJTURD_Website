@@ -139,3 +139,22 @@ fabric.properties
 
 # Database
 db.sqlite3
+found/migrations/0006_auto_20160927_0858.py
+
+lost/migrations/0005_auto_20160927_0858.py
+
+public/static/img/logo.png
+
+public/static/img/favicon.png
+
+public/static/css/base.css
+
+public/static/js/base.js
+
+SJTURD_Website/settings.py
+
+static/css/base.css
+
+static/js/vol_upload.js
+
+static/js/vol_upload.js
