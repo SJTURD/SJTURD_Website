@@ -36,6 +36,25 @@ def login(request):
         # login(request, user)
     error_message = {'message':"Wrong user or password!"}
     context={}
+    context['numLostItem']=len(LostItem.objects.all())
+    context['rangeNumLostItem']=range(context['numLostItem'])
+    context['lostItem']={}
+    for i in LostItem.objects.all():
+        index=i.item_id
+        context['lostItem'][index]={}
+        context['lostItem'][index]['id']=i.item_id
+        context['lostItem'][index]['src']="/media/lost/"+str(i.item_id)+".jpg"
+        context['lostItem'][index]['catagory']=i.category
+        context['lostItem'][index]['description']=i.description
+        context['lostItem'][index]['lostTime']=i.lost_time
+        context['lostItem'][index]['owner']=i.owner
+        context['lostItem'][index]['contact']=i.contact
+        context['lostItem'][index]['status']=i.status
+    context['lostItemValues']=context['lostItem'].values()
+    context['ii']={}
+    context['ii']['ok']="/media/lost/1.jpg"
+    context['kk']=1
+
     tmp=Volunteer.objects.filter(name=username)
     if len(tmp)>0:
         if tmp[0].password==password:

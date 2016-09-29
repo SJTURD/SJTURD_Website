@@ -12,8 +12,4 @@ class LostItem(models.Model):
 	lost_time=models.CharField(max_length=200)
 	owner=models.CharField(max_length=200)
 	contact=models.CharField(max_length=200)
-	STATUS=(
-		(0,'Finding'),
-		(1,'Found'),
-		(2,'OW')
-	)
+	status=models.IntegerField(default=0) #0:Finding 1:Found
