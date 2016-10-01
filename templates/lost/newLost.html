@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  搜索仓库
+{% endblock %}
+
+{% block topbar-title %}
+  搜索仓库
+{% endblock %}
+
+{% block content %}
+  <div class = am-u-sm-centered>请先搜索仓库内是否有你的失物</div>
+  <form class="am-form">
+    <div class="am-g">
+      <div class="am-u-sm-2">丢失物品类别</div>
+      <div class="am-u-sm-10">
+        <div class="am-form-group">
+          <select id="category">
+            {% for i in catagory%}
+              <option value="{{i.id}}">{{ i.name }}</option>
+            {% endfor %}
+          </select>
+          <span class="am-form-caret"></span>
+        </div>
+      </div>
+    </div>
+    <div class="am-g">
+      <div class="am-u-sm-2">丢失物品地点</div>
+      <div class="am-u-sm-10">
+        <div class="am-form-group">
+          <select id="location">
+            {% for i in location %}
+              <option value="{{i.id}}">{{ i.name }}</option>
+            {% endfor %}
+          </select>
+          <span class="am-form-caret"></span>
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="am-btn am-btn-default">提交</button>
+  </form>
+
+{% endblock %}

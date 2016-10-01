@@ -49,7 +49,14 @@ def get_lost_items(request):
 
 
 def new_lost(request):
-    pass
+    category = Category.objects.all().order_by("name")
+    location = Location.objects.all().order_by("name")
+    context = {
+        'MEDIA_URL': settings.MEDIA_URL,
+        'location' : location,
+        'category' : category
+    }
+    return render(request, 'lost/newLost.html', context)
 
 
 def found_list(request):

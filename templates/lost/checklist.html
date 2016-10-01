@@ -1,18 +1,25 @@
-{% load static %}
+{% extends 'base.html' %}
 
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-  <meta charset="UTF-8">
-  <title>查看仓库 - 交大丢丢</title>
-  <script type="text/javascript" src="{% static "js/react.min.js" %}"></script>
-  <script type="text/javascript" src="{% static "js/react-dom.min.js" %}"></script>
-  <script type="text/javascript" src="{% static "js/browser.min.js" %}"></script>
-  <script type="text/javascript" src="{% static "js/jquery-3.1.0.min.js" %}"></script>
-</head>
-<body>
+{% block title %}
+搜索结果
+{% endblock %}
+
+{% block topbar-title %}
+  搜索结果
+{% endblock %}
+{% block content %}
   <h1>以下物品中是否有您的宝贝</h1>
-  <div id="upload"></div>
+    <div class="am-g">
+      <div class="am-u-sm-10">
+        <span class="am-icon-check"> 如有，请点击图片查看详情</span>
+        <br>
+        <span class="am-icon-close"> 如没有，请点击右边按钮上传失物信息</span>
+      </div>
+      <div class="am-u-sm-2">
+          <a href="uploadLostItem.html" class="am-icon-btn am-icon-upload"></a>
+      </div>
+    </div>
+
   <div id="content">
     <div id="category-selector"></div>
     <div id="location-selector"></div>
@@ -22,6 +29,5 @@
   <script type="text/javascript">
     var MEDIA_URL = "{{MEDIA_URL}}";
   </script>
-  <script type="text/babel" src="{% static "js/lost_list.js" %}"></script>
-</body>
-</html>
+
+{% endblock %}

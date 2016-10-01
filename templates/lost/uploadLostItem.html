@@ -1,18 +1,71 @@
-{% load static %}
+{% extends 'base.html' %}
 
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-  <meta charset="UTF-8">
-  <title>上传 - 交大丢丢</title>
-  <script type="text/javascript" src="{% static "js/react.min.js" %}"></script>
-  <script type="text/javascript" src="{% static "js/react-dom.min.js" %}"></script>
-  <script type="text/javascript" src="{% static "js/browser.min.js" %}"></script>
-  <script type="text/javascript" src="{% static "js/jquery-3.1.0.min.js" %}"></script>
-</head>
-<body>
+{% block title %}
+  上传失物信息
+{% endblock %}
+
+{% block topbar-title %}
+  上传失物信息
+{% endblock %}
+
+{% block content %}
+  <form class="am-form-group">
+    <div class="am-g">
+      <div class="am-u-sm-6">
+          <span class="am-icon-bookmark">物品类别</span>
+      </div>
+      <div class="am-u-sm-6">
+        <select id="category">
+          {% for i in catagory%}
+            <option value="{{i.id}}">{{ i.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="am-u-sm-6">
+        <span class="am-icon-location-arrow">丢失地点</span>
+      </div>
+      <div class="am-u-sm-6">
+        <select id="location">
+          {% for i in location%}
+            <option value="{{i.id}}">{{ i.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="am-u-sm-6">
+        <span class="am-icon-photo">上传图片</span>
+      </div>
+      <div class="am-u-sm-6">
+        </div>
+      <div class="am-u-sm-6">
+        <span class="am-icon-send">电子邮箱</span>
+      </div>
+      <div class="am-u-sm-6">
+        <input type="email" id="phone">
+      </div>
+      <div class="am-u-sm-6">
+        <span class="am-icon-phone">联系方式</span>
+      </div>
+      <div class="am-u-sm-6">
+        <input type="text" id="email">
+      </div>
+      <div class="am-u-sm-6">
+        <span class="am-icon-info">备注（选填）</span>
+      </div>
+      <div class="am-u-sm-6">
+        <input type="text" id="remark">
+      </div>
+    </div>
+    <div class="am-g">
+        
+    </div>
+  </form>
+
+{% endblock %}
   <h1>上传失物信息</h1>
-  <div id="content">
+  <form class="am-form-group">
+
+  </form>
+  <div class="am-g" id="content">
     <div id="category-selector"></div>
     <div id="location-selector"></div>
     <div id="image"></div>
