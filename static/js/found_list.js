@@ -177,7 +177,7 @@ var FoundBox = React.createClass({
   },
 
   componentDidMount: function() {
-    this.loadFoundsFromServer();
+    this.loadFoundsFromServer();gi
   },
 
   switchCategory: function() {
