@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
 
 from .models import Found
 
@@ -10,7 +11,7 @@ def item_list(request):
         'MEDIA_URL': settings.MEDIA_URL,
         'selector1_init_url': '/main/api/getCategories',
         'selector2_init_url': '/main/api/getLocations',
-        'item_url': 'api/getItems',
+        'items_url': 'api/getItems',
     }
 
     return render(request, 'found/itemList.html', context)
@@ -64,7 +65,7 @@ def get_items(request):
 
     data = [{
                 'img': i.picture.name,
-                'url': 'found/item?id=' + str(i.pk),
+                'url': 'item?id=' + str(i.pk),
                 'left_field': i.category.name,
                 'right_field': str(i.date.date())[5:],
                 'bottom_field': i.lfoffice.name,
@@ -77,6 +78,46 @@ def get_items(request):
         'selector1_val': category,
         'selector2_val': location,
         'end_of_list': end_of_list,
+    }
+
+    return JsonResponse(data)
+
+
+def item(request):
+    context = {
+        'MEDIA_URL': settings.MEDIA_URL,
+        'item_url': 'api/getItem',
+    }
+
+    return render(request, 'found/item.html', context)
+
+
+def get_item(request):
+    data = {
+        'img': '',
+        'detail': [],
+    }
+
+    if not request.is_ajax():
+        return JsonResponse(data)
+
+    params = request.GET
+
+    id = int(params['id'])
+
+    try:
+        data = Found.objects.get(pk=id)
+    except ObjectDoesNotExist:
+        return JsonResponse(data)
+
+    data = {
+        'id': data.pk,
+        'img': data.picture.name,
+        'key': ['类别', '发现地点', '详细说明', '现所在地'],
+        '类别': data.category.name,
+        '发现地点': data.location.name,
+        '详细说明': data.detail,
+        '现所在地': data.lfoffice.name,
     }
 
     return JsonResponse(data)

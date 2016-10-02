@@ -34,14 +34,16 @@
 {% endblock %}
 
 {% block controller %}
-  <script type="text/javascript" src="{% static "js/list_base_controller.js" %}"></script>
-
   <script type="text/javascript">
     var MEDIA_URL = "{{ MEDIA_URL }}";
     var selector1_init_url = "{{ selector1_init_url }}";
     var selector2_init_url = "{{ selector2_init_url }}";
-    var item_url = "{{ item_url }}";
+    var items_url = "{{ items_url }}";
+  </script>
 
+  <script type="text/javascript" src="{% static "js/list_base_controller.js" %}"></script>
+
+  <script type="text/javascript">
     init();
   </script>
 

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block static %}
+  <link rel="stylesheet" href='{% static  "css/detail_base.css" %}'>
+
+  <script type="text/javascript" src="{% static 'js/detail_base.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+  <div id="item" class="am-u-sm-12 am-thumbnail"></div>
+
+  {% block extraContent %}
+  {% endblock %}
+{% endblock %}
+
+{% block controller %}
+  <script type="text/javascript">
+    var MEDIA_URL = "{{ MEDIA_URL }}";
+    var item_url = "{{ item_url }}";
+
+    var getUrlParameter = function getUrlParameter(sParam) {
+      var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+          sURLVariables = sPageURL.split('&'),
+          sParameterName,
+          i;
+
+      for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+          return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+      }
+    };
+
+    var id = Number(getUrlParameter('id'));
+  </script>
+
+  <script type="text/javascript" src="{% static "js/detail_base_controller.js" %}"></script>
+
+  <script type="text/javascript">
+    init();
+  </script>
+
+{% endblock %}
