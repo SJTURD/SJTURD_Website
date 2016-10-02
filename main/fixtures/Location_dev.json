@@ -3,21 +3,21 @@
     "model": "main.Location",
     "pk": 1,
     "fields": {
-      "name": "Loc1"
+      "name": "第一地点"
     }
   },
   {
     "model": "main.Location",
     "pk": 2,
     "fields": {
-      "name": "Loc2"
+      "name": "第二地点"
     }
   },
   {
     "model": "main.Location",
     "pk": 3,
     "fields": {
-      "name": "Loc3"
+      "name": "第三地点"
     }
   }
 ]

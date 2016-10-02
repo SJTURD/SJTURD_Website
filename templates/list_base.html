@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block static %}
+  <link rel="stylesheet" href='{% static  "css/list_base.css" %}'>
+{% endblock %}
+
+{% block content %}
+  <div class="am-u-sm-12 am-form-group am-form-select">
+    <select id="selector1" onchange="selector1()">
+      <span class="am-form-caret"></span>
+    </select>
+  </div>
+
+  <div class="am-u-sm-12 am-form-group am-form-select">
+    <select id="selector2" onchange="selector2()">
+      <span class="am-form-caret"></span>
+    </select>
+  </div>
+
+  <div id="item-list">
+    <ul class="am-avg-sm-2 am-avg-md-3 am-avg-lg-4"></ul>
+  </div>
+
+  <div id="page-selector">
+    <ul class="am-pagination">
+      <li class="am-pagination-prev"><a onclick="prevPage()">&laquo; 上一页</a></li>
+      <li class="am-pagination-next"><a onclick="nextPage()">下一页 &raquo;</a></li>
+    </ul>
+  </div>
+{% endblock %}
+
+{% block controller %}
+  <script type="text/javascript" src="{% static "js/list_base_controller.js" %}"></script>
+
+  <script type="text/javascript">
+    var MEDIA_URL = "{{ MEDIA_URL }}";
+    var selector1_init_url = "{{ selector1_init_url }}";
+    var selector2_init_url = "{{ selector2_init_url }}";
+    var item_url = "{{ item_url }}";
+
+    init();
+  </script>
+
+{% endblock %}

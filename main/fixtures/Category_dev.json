@@ -3,21 +3,21 @@
     "model": "main.Category",
     "pk": 1,
     "fields": {
-      "name": "Cat1"
+      "name": "第一类物品"
     }
   },
   {
     "model": "main.Category",
     "pk": 2,
     "fields": {
-      "name": "Cat2"
+      "name": "第二类物品"
     }
   },
   {
     "model": "main.Category",
     "pk": 3,
     "fields": {
-      "name": "Cat3"
+      "name": "第三类物品"
     }
   }
 ]
