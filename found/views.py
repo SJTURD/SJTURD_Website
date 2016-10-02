@@ -1,49 +1,19 @@
-import json
-
-from django.core import serializers
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.conf import settings
 
 from .models import Found
-from main.models import Category, Location
 
 
 def item_list(request):
     context = {
         'MEDIA_URL': settings.MEDIA_URL,
-        'selector1_init_url': 'api/getCategories',
-        'selector2_init_url': 'api/getLocations',
+        'selector1_init_url': '/main/api/getCategories',
+        'selector2_init_url': '/main/api/getLocations',
         'item_url': 'api/getItems',
     }
 
     return render(request, 'found/itemList.html', context)
-
-
-def get_categories(request):
-    data = Category.objects.all()
-    data = [{'pk': cat['pk'], 'name': cat['fields']['name']} for cat in json.loads(serializers.serialize('json', data))]
-    data = [{'pk': 0, 'name': '所有类别'}] + data
-
-    data = {
-        'data': data,
-        'default': 0,
-    }
-
-    return JsonResponse(data)
-
-
-def get_locations(request):
-    data = Location.objects.all()
-    data = [{'pk': loc['pk'], 'name': loc['fields']['name']} for loc in json.loads(serializers.serialize('json', data))]
-    data = [{'pk': 0, 'name': '全部地点'}] + data
-
-    data = {
-        'data': data,
-        'default': 0,
-    }
-
-    return JsonResponse(data)
 
 
 def get_items(request):

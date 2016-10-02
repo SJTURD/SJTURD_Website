@@ -22,6 +22,7 @@ import main.views
 
 urlpatterns = [
     url(r'^$', main.views.index, name='index'),
+    url(r'^main/', include('main.urls')),
     url(r'^user/', include('user.urls')),
     url(r'^lost/', include('lost.urls')),
     url(r'^found/', include('found.urls')),
