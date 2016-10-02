@@ -59,9 +59,13 @@ def new_lost(request):
     return render(request, 'lost/newLost.html', context)
 
 
-def found_list(request):
+def search(request):
+    location = request.GET['location']
+    category = request.GET['category']
     context = {
-        'MEDIA_URL': settings.MEDIA_URL
+        'MEDIA_URL': settings.MEDIA_URL,
+        'location' : location,
+        'category' : category
     }
     return render(request, 'lost/checklist.html', context)
 

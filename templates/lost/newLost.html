@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}
   搜索仓库
+{% endblock %}
+
+{% block static %}
+  <link rel="stylesheet" href="{% static "css/newlost.css" %}">
 {% endblock %}
 
 {% block topbar-title %}
@@ -9,26 +13,27 @@
 {% endblock %}
 
 {% block content %}
-  <div class = am-u-sm-centered>请先搜索仓库内是否有你的失物</div>
-  <form class="am-form">
-    <div class="am-g">
-      <div class="am-u-sm-2">丢失物品类别</div>
-      <div class="am-u-sm-10">
+  <div class ="text" style="padding: 2rem 0rem 8rem 2rem; font-size: 1.2rem; color: #b9b7b7;">先搜索仓库内是否有你的失物</div>
+  <form action="/search/" method="get" class="am-form">
+    <div class="am-g" style="padding: 0 0 2rem 0;">
+      <div class="am-u-sm-6" style="text-align: center; padding:0.5rem 0 0 0;">丢失物品类别</div>
+      <div class="am-u-sm-5">
         <div class="am-form-group">
-          <select id="category">
-            {% for i in catagory%}
+          <select id="category" name="category">
+            {% for i in category%}
               <option value="{{i.id}}">{{ i.name }}</option>
             {% endfor %}
           </select>
           <span class="am-form-caret"></span>
         </div>
       </div>
+      <div class="am-u-sm-1"></div>
     </div>
     <div class="am-g">
-      <div class="am-u-sm-2">丢失物品地点</div>
-      <div class="am-u-sm-10">
+      <div class="am-u-sm-6" style="text-align: center; padding:0.5rem 0 0 0;">丢失物品地点</div>
+      <div class="am-u-sm-5">
         <div class="am-form-group">
-          <select id="location">
+          <select id="location" name="location">
             {% for i in location %}
               <option value="{{i.id}}">{{ i.name }}</option>
             {% endfor %}
@@ -36,8 +41,11 @@
           <span class="am-form-caret"></span>
         </div>
       </div>
+      <div class="am-u-sm-1"></div>
     </div>
-    <button type="submit" class="am-btn am-btn-default">提交</button>
+    <div class="am-g" style=" padding:2rem 0 0 0;">
+      <button type="submit" class="am-btn am-btn-default am-btn-success am-center" style="text-align: center;">check now</button>
+    </div>
   </form>
 
 {% endblock %}

@@ -1,0 +1,20 @@
+body {
+  font-family:Helvetica;
+}
+.text {
+  padding-top: 100rem;
+  margin-top: 100rem;
+  width: 5rem;
+  background: url(/static/img/logo.png) no-repeat left center;
+  font-size: 100rem;
+}
+
+.am-topbar .am-text-ir {
+  display: block;
+  margin-right: 1rem;
+  height: 5rem;
+  width: 5rem;
+  background: url(/static/img/logo.png) no-repeat left center;
+  -webkit-background-size: 5rem 5rem;
+  background-size: 5rem 5rem;
+}
