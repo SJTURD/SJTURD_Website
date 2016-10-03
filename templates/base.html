@@ -33,19 +33,9 @@
 </head>
 <body>
   <header class="am-topbar am-topbar-fixed-top">
-    <h1 class="am-topbar-brand">
-      <a href="/" class="am-text-ir"></a>
-    </h1>
-
-    <div class="am-topbar-brand">
-      <h1>
-        <a href="#">
-          {%  block topbar-title %}
-          {% endblock %}
-        </a>
-      </h1>
-    </div>
-
+    <div class="topbar-left am-u-sm-2"><a href="javascript:window.history.back()">返回</a></div>
+    <div class="topbar-center am-u-sm-8">{% block topbar-title %}{% endblock %}</div>
+    <div class="topbar-right am-u-sm-2"><a href="/">首页</a></div>
   </header>
 
   {% block content %}

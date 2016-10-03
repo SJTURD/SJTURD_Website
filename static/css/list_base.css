@@ -6,11 +6,19 @@
 
 .right_field {
   color: #eeeeee;
+  padding-right: 0.5rem;
 }
 
 .am-form-select {
   margin-top: 1.5rem;
   margin-bottom: 0;
+  padding-left: 2rem;
+  padding-right: 0;
+}
+
+#item-list {
+  margin-left: 0.2rem;
+  margin-right: 0.2rem;
 }
 
 .select-hidden {
