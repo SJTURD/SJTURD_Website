@@ -68,7 +68,7 @@ def get_items(request):
                 'url': 'item?id=' + str(i.pk),
                 'left_field': i.category.name,
                 'right_field': str(i.date.date())[5:],
-                'bottom_field': i.lfoffice.name,
+                'bottom_field': i.location.name,
             }
             for i in data]
 
