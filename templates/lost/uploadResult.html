@@ -1,18 +1,18 @@
+{% extends 'base.html' %}
 {% load static %}
+{% block title %}
+  提交成功
+{% endblock %}
 
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-  <meta charset="UTF-8">
-  <title>提交成功 - 交大丢丢</title>
-  <script type="text/javascript" src="{% static "js/react.min.js" %}"></script>
-  <script type="text/javascript" src="{% static "js/react-dom.min.js" %}"></script>
-  <script type="text/javascript" src="{% static "js/browser.min.js" %}"></script>
-  <script type="text/javascript" src="{% static "js/jquery-3.1.0.min.js" %}"></script>
-</head>
-<body>
-  <h1></h1>
-  <div id="result">提交成功</div>
-  <div id="congratulations">丢丢祝愿失主能早日与自己的宝贝重逢</div>
-</body>
-</html>
+{% block topbar-title %}
+  提交成功
+{% endblock %}
+
+{% block static %}
+{% endblock %}
+
+{% block content %}
+    <span class="am-u-sm-12 am-u-sm-centered am-icon-lg am-icon-smile-o" style="padding: 20rem 0rem 8rem 0rem;text-align: center">&nbsp;&nbsp;&nbsp;提交成功</span>
+    <div class ="text" style="padding: 0rem 0rem 8rem 2rem; font-size: 1.6rem;text-align: center">丢丢祝愿失主能早日与自己的宝贝重逢</div>
+
+{% endblock %}

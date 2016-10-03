@@ -8,5 +8,5 @@ urlpatterns = [
     url(r'^newLost$', views.new_lost, name='new_lost'),
     url(r'^newLost/foundList$', views.search, name='found_list'),
     url(r'^uploadLostItem', views.upload_lost_item, name='upload_lost_item'),
-    url(r'^uploadResult', views.upload_result, name='upload_result')
+    url(r'^upload', views.upload, name='upload_result')
 ]

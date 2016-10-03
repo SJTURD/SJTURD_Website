@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}
   上传失物信息
 {% endblock %}
@@ -8,76 +8,123 @@
   上传失物信息
 {% endblock %}
 
+{% block static %}
+{% endblock %}
+
 {% block content %}
-  <form class="am-form-group">
-    <div class="am-g">
-      <div class="am-u-sm-6">
-          <span class="am-icon-bookmark">物品类别</span>
+  <form action="/lost/upload/" class="am-form-group" method="get">
+    <div class="am-g"  style="padding: 2rem 0rem 8rem 2rem;">
+      <div class="am-u-sm-6"style="padding: 2rem 0rem 1rem 2rem;">
+          <span class="am-icon-bookmark" id="test">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;物品类别</span>
       </div>
-      <div class="am-u-sm-6">
+      <div class="am-u-sm-6"style="padding: 2rem 0rem 1rem 2rem;">
         <select id="category">
-          {% for i in catagory%}
+          {% for i in category%}
             <option value="{{i.id}}">{{ i.name }}</option>
           {% endfor %}
         </select>
       </div>
-      <div class="am-u-sm-6">
-        <span class="am-icon-location-arrow">丢失地点</span>
+      <div class="am-u-sm-6"style="padding: 0rem 0rem 1.2rem 2rem;">
+        <span class="am-icon-location-arrow">&nbsp;&nbsp;&nbsp;&nbsp;丢失地点</span>
       </div>
-      <div class="am-u-sm-6">
+      <div class="am-u-sm-6"style="padding: 0rem 0rem 1.2rem 2rem;">
         <select id="location">
           {% for i in location%}
             <option value="{{i.id}}">{{ i.name }}</option>
           {% endfor %}
         </select>
       </div>
-      <div class="am-u-sm-6">
-        <span class="am-icon-photo">上传图片</span>
+      <div class="am-u-sm-6" style="padding: 0rem 0rem 1.2rem 2rem;">
+        <span class="am-icon-photo">&nbsp;&nbsp;&nbsp;上传图片</span>
       </div>
-      <div class="am-u-sm-6">
-        </div>
-      <div class="am-u-sm-6">
-        <span class="am-icon-send">电子邮箱</span>
+      <div class="am-u-sm-4" style="padding: 0rem 0rem 1.2rem 0rem;">
+        hello world
       </div>
-      <div class="am-u-sm-6">
-        <input type="email" id="phone">
+      <div class="am-u-sm-6" style="padding: 0rem 0rem 1.2rem 2rem;">
+        <span class="am-icon-send">&nbsp;&nbsp;&nbsp;电子邮箱</span>
       </div>
-      <div class="am-u-sm-6">
-        <span class="am-icon-phone">联系方式</span>
+      <div class="am-u-sm-4" style="padding: 0rem 2rem 1.2rem 0rem;">
+        <input type="email" id="email">
       </div>
-      <div class="am-u-sm-6">
-        <input type="text" id="email">
+      <div class="am-u-sm-6" style="padding: 0rem 0rem 1.2rem 2rem;">
+        <span class="am-icon-phone">&nbsp;&nbsp;&nbsp;&nbsp;联系方式</span>
       </div>
-      <div class="am-u-sm-6">
-        <span class="am-icon-info">备注（选填）</span>
+      <div class="am-u-sm-4" style="padding: 0rem 2rem 1.2rem 0rem;">
+        <input type="text" id="phone">
       </div>
-      <div class="am-u-sm-6">
+      <div class="am-u-sm-6" style="padding: 0rem 0rem 1.2rem 2rem;">
+        <span class="am-icon-info">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;备注（选填）</span>
+      </div>
+      <div class="am-u-sm-4" style="padding: 0rem 2rem 1.2rem 0rem;">
         <input type="text" id="remark">
       </div>
     </div>
+       </div>
     <div class="am-g">
-      <div
+      <div id="example"></div>
+    </div>
+    <div class="am-g">
+      <button type="submit" class="am-btn am-btn-default" value="提交">提交</button>
     </div>
   </form>
+      <script type="text/babel">
+          var DateType = React.createClass({
+              static defaultProps = {
+                      checkout: true
+              };
+              static PropTypes = {
+                      checkout: React.PropTypes.bool
+              };
+            componentWillReceiveProps(object nextProps) {
+              this.setState({checkout: nextProps.checkout});
+               }
+            render: function() {
 
+            if(this.props.checkout){
+                return (
+                  <div class="am-g">
+                     hello
+                  </div>
+                );
+            }
+            return (
+                  <div class="am-g" style="color: #b9b7b7;">
+                    丢丢祝愿失主早日与自己的宝贝重逢！
+                  </div>
+                );
+            }
+          });
+
+
+          var Date = React.createClass({
+            getInitialState: function() {
+            return {appreciate: true};
+            },
+            handleClick: function() {
+              this.setState({appreciate: !this.state.appreciate});
+            },
+            render: function() {
+              var type1 = this.state.appreciate ? "am-btn am-btn-default":"am-btn am-btn-success";
+              var text = this.state.appreciate ? 'no':'yes';
+              return (
+                <div class="am-g" id="appreciation">
+                <div class="am-g" id="willing">
+                  <div class="am-u-sm-8">
+                     是否愿意感谢捡到您宝贝的同学？
+                  </div>
+                <div class="am-u-sm-4">
+                  <button type="button" class={type1} onClick={this.handleClick}>{text}</button>
+                </div>
+                <DateType checkout={this.state.appreciate} />
+               </div>
+               </div>
+              );
+            }
+          });
+
+        ReactDOM.render(
+          <Date />,
+          document.getElementById('example')
+        );
+      </script>
 {% endblock %}
-  <h1>上传失物信息</h1>
-  <form class="am-form-group">
-
-  </form>
-  <div class="am-g" id="content">
-    <div id="category-selector"></div>
-    <div id="location-selector"></div>
-    <div id="image"></div>
-    <div id="email"></div>
-    <div id="contact"></div>
-    <div id="remark"></div>
-    <div id="appreciation"></div>
-  </div>
-  <div id="reasonToUpload"></div>
-  <script type="text/javascript">
-    var MEDIA_URL = "{{MEDIA_URL}}";
-  </script>
-  <script type="text/babel" src="{% static "js/uploadLostItem.js" %}"></script>
-</body>
-</html>

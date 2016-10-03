@@ -71,14 +71,20 @@ def search(request):
 
 
 def upload_lost_item(request):
+    category = Category.objects.all().order_by("name")
+    location = Location.objects.all().order_by("name")
     context = {
-        'MEDIA_URL': settings.MEDIA_URL
+        'MEDIA_URL': settings.MEDIA_URL,
+        'location' : location,
+        'category' : category
     }
     return render(request, 'lost/uploadLostItem.html', context)
 
-
-def upload_result(request):
-    context = {
-        'MEDIA_URL': settings.MEDIA_URL
-    }
-    return render(request, 'lost/uploadResult.html', context)
+def upload(request):
+    location = request.GET['location'];
+    category = request.GET['category'];
+    email = request.GET['email'];
+    phone = request.GET['phone'];
+    remark = request.GET['remark'];
+    Lost.objects.create(user='999999',category=category,location=location,pic,phone=phone,email=email,remark=remark)
+    return render(request, 'lost/uploadResult.html')
