@@ -17,7 +17,7 @@ def item_list(request):
         'items_url': 'api/getItems',
     }
 
-    return render(request, 'found/itemList.html', context)
+    return render(request, 'lost/itemList.html', context)
 
 
 def get_items(request):
@@ -37,10 +37,10 @@ def get_items(request):
     params = request.GET
 
     page = int(params['page'])
-    category = int(params['selector1_val'])
-    location = int(params['selector2_val'])
+    category = int(params['category'])
+    location = int(params['location'])
 
-    data = Found.objects.all().filter(paired=False).order_by('-date')
+    data = Lost.objects.all().filter(paired=False).order_by('-date')
     if category > 0:
         data = data.filter(category=category)
     if location > 0:
@@ -92,7 +92,7 @@ def item(request):
         'item_url': 'api/getItem',
     }
 
-    return render(request, 'found/item.html', context)
+    return render(request, 'lost/item.html', context)
 
 
 def get_item(request):
@@ -109,7 +109,7 @@ def get_item(request):
     id = int(params['id'])
 
     try:
-        data = Found.objects.get(pk=id)
+        data = Lost.objects.get(pk=id)
     except ObjectDoesNotExist:
         return JsonResponse(data)
 

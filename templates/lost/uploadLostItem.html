@@ -68,19 +68,17 @@
     </div>
   </form>
       <script type="text/babel">
-          var DateType = React.createClass({
-              static defaultProps = {
-                      checkout: true
-              };
-              static PropTypes = {
-                      checkout: React.PropTypes.bool
-              };
-            componentWillReceiveProps(object nextProps) {
-              this.setState({checkout: nextProps.checkout});
-               }
+          var DateType = React.createClass(
+    static defaultProps = {
+        checkout=true
+    };
+    static PropTypes = {
+        checkout: React.PropTypes.bool
+    };
+
             render: function() {
 
-            if(this.props.checkout){
+            if(this.state.checkout){
                 return (
                   <div class="am-g">
                      hello

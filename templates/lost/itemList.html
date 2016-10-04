@@ -1,0 +1,22 @@
+{% extends 'list_base.html' %}
+
+{% block title %}
+  丢丢仓库
+{% endblock %}
+
+{% block topbar-title %}
+  以下是否有您的宝贝？
+{% endblock %}
+
+{% block beforeContent %}
+  <div class="am-g" style="padding: 2rem 0rem 1rem 0rem;">
+    <div class="am-u-sm-9">
+      <span class="am-icon-check am-icon-md">&nbsp;如有，请点击图片查看详情</span>
+      <br>
+      <span class="am-icon-close am-icon-md">&nbsp;&nbsp;如没有，请点击按钮失物信息</span>
+    </div>
+    <div class="am-u-sm-3" style="padding: 1rem 0rem 1rem 0rem;">
+      <a class="am-btn am-btn-default am-btn-primary" href="/lost/uploadLostItem/" >upload</a>
+    </div>
+  </div>
+{% endblock %}

@@ -3,7 +3,7 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    url(r'^itemList$', views.item_list, name='flost_list'),
+    url(r'^itemList/$', views.item_list, name='flost_list'),
     url(r'^item', views.item, name='lost_item'),
     url(r'^api/getItems', views.get_items, name='get_lost_items'),
     url(r'^api/getItem', views.get_item, name='get_lost_item'),
