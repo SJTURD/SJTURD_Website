@@ -1,15 +1,17 @@
+import os
+
 from django.shortcuts import render, redirect
 from django.conf import settings
 from django.core import serializers
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render_to_response 
-
-from database.models import *
 from django.template import RequestContext
 from django import forms
 from django.http import HttpResponse
-import os
+
+from database.models import *
+
 
 def index_init(request):
     request.session["logged"]=0
@@ -39,8 +41,8 @@ def index(request):
         return render_to_response('volunteer/login.html',{})
 
 def login(request):
-    username = request.POST['username']
-    password = request.POST['password']
+    username = request.POST.get('username',False) #Post[] -> Post.get(,False)
+    password = request.POST.get('password',False)
     tmp=Volunteer.objects.filter(name=username)
     error_message = {'message':"Wrong user or password!"}
 
@@ -53,7 +55,7 @@ def login(request):
     else:
         return render_to_response('volunteer/login.html',error_message)
 
-
+# upload part
 class UserForm(forms.Form):
     category = forms.CharField()
     description =forms.CharField()
@@ -75,16 +77,19 @@ def upload_view(request):
             item.save()
             os.rename(item.img.path,settings.MEDIA_ROOT+"/lost/"+str(len(LostItem.objects.all()))+".jpg")
             item.save()
-            return HttpResponse(item.img.path)
+            uf=UserForm()
+            message="Upload Completed!"
+
     else:
-         uf = UserForm()
-    return render_to_response('volunteer/upload.html',{'uf':uf})
+        uf = UserForm()
+        message=""
+    return render_to_response('volunteer/upload.html',{'uf':uf, 'message':message})
 
-
-def upload(request):
-    catagory = request["POST"]["catagory"]
-    location = request["POST"]["location"]
-    imageUrl = request["POST"]["imageUrl"]
-    if imageUrl == "":
-        return False
-    return True
+# retrieve part
+def retrieve(request):
+    retrieveList=request.POST.getlist('retrieveCheckBox')
+    for i in retrieveList:
+        a=LostItem.objects.get(item_id=i)
+        a.status=1
+        a.save()
+    return index(request)

@@ -1,20 +1,15 @@
+{% extends 'base.html' %}
 {% load static %}
-
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-  <meta charset="UTF-8">
-  <title>丢丢仓库 - 交大丢丢</title>
-  <script type="text/javascript" src="{% static "js/react.min.js" %}"></script>
-  <script type="text/javascript" src="{% static "js/react-dom.min.js" %}"></script>
-  <script type="text/javascript" src="{% static "js/browser.min.js" %}"></script>
-  <script type="text/javascript" src="{% static "js/jquery-3.1.0.min.js" %}"></script>
-</head>
-<body>
-  <h1>批量上传</h1>
-  <form method="post" enctype="multipart/form-data" >
+{% block title %}
+    失物信息上传
+{% endblock %}
+{% block topbar-title %}
+    失物信息上传
+{% endblock %}
+{% block content %}
+  <form method="post" class="am-form" enctype="multipart/form-data" >
 {{uf.as_p}}
 <input type="submit" value="ok"/>
 </form>
-</body>
-</html>
+    <p style="color: green"> {{ message }} </p>
+{% endblock %}
