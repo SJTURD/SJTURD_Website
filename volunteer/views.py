@@ -10,7 +10,8 @@ from django.template import RequestContext
 from django import forms
 from django.http import HttpResponse
 
-from database.models import *
+from django.contrib.auth.models import User
+from volunteer.models import Lost
 
 
 def index_init(request):
@@ -21,10 +22,10 @@ def index(request):
 
     if request.session["logged"]==1:
         context={}
-        context['numLostItem']=len(LostItem.objects.all())
+        context['numLostItem']=len(Lost.objects.all())
         context['rangeNumLostItem']=range(context['numLostItem'])
         context['lostItem']={}
-        for i in LostItem.objects.all():
+        for i in Lost.objects.all():
             index=i.item_id
             context['lostItem'][index]={}
             context['lostItem'][index]['id']=i.item_id
@@ -43,7 +44,7 @@ def index(request):
 def login(request):
     username = request.POST.get('username',False) #Post[] -> Post.get(,False)
     password = request.POST.get('password',False)
-    tmp=Volunteer.objects.filter(name=username)
+    tmp=User.objects.filter(username=username)
     error_message = {'message':"Wrong user or password!"}
 
     if len(tmp)>0:
@@ -67,19 +68,18 @@ def upload_view(request):
     if request.method == "POST":
         uf = UserForm(request.POST,request.FILES)
         if uf.is_valid():
-            item=LostItem()
-            item.item_id= len(LostItem.objects.all())+1
+            item=Lost()
+            item.item_id= len(Lost.objects.all())+1
             item.category = uf.cleaned_data['category']
             item.description =uf.cleaned_data['description']
             item.owner=uf.cleaned_data['owner']
             item.contact=uf.cleaned_data['contact']
             item.img = uf.cleaned_data['img']
             item.save()
-            os.rename(item.img.path,settings.MEDIA_ROOT+"/lost/"+str(len(LostItem.objects.all()))+".jpg")
+            os.rename(item.img.path,settings.MEDIA_ROOT+"/lost/"+str(len(Lost.objects.all()))+".jpg")
             item.save()
             uf=UserForm()
             message="Upload Completed!"
-
     else:
         uf = UserForm()
         message=""
@@ -89,7 +89,7 @@ def upload_view(request):
 def retrieve(request):
     retrieveList=request.POST.getlist('retrieveCheckBox')
     for i in retrieveList:
-        a=LostItem.objects.get(item_id=i)
+        a=Lost.objects.get(item_id=i)
         a.status=1
         a.save()
     return index(request)
