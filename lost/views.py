@@ -8,7 +8,6 @@ from django import forms
 from django.core.exceptions import ObjectDoesNotExist
 
 from .models import Lost
-from found.models import Found
 from main.models import Category, Location
 
 
@@ -17,7 +16,7 @@ def item_list(request):
         'MEDIA_URL': settings.MEDIA_URL,
         'selector1_init_url': '/main/api/getCategories',
         'selector2_init_url': '/main/api/getLocations',
-        'items_url': 'api/getItems',
+        'items_url': '/found/api/getItems',
     }
 
     return render(request, 'lost/itemList.html', context)
@@ -43,7 +42,7 @@ def get_items(request):
     category = int(params['selector1_val'])
     location = int(params['selector2_val'])
 
-    data = Found.objects.all().filter(paired=False).order_by('-date')
+    data = Lost.objects.all().filter(paired=False).order_by('-date')
     if category > 0:
         data = data.filter(category=category)
     if location > 0:
@@ -112,22 +111,20 @@ def get_item(request):
     id = int(params['id'])
 
     try:
-        data = Found.objects.get(pk=id)
+        data = Lost.objects.get(pk=id)
     except ObjectDoesNotExist:
         return JsonResponse(data)
 
     data = {
         'id': data.pk,
         'img': data.picture.name,
-        'key': ['类别', '发现地点', '详细说明', '现所在地'],
+        'key': ['类别', '发现地点', '详细说明'],
         '类别': data.category.name,
         '发现地点': data.location.name,
         '详细说明': data.detail,
-        '现所在地': data.lfoffice.name,
     }
 
     return JsonResponse(data)
-
 
 
 def new_lost(request):
