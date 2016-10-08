@@ -9,15 +9,33 @@
 {% endblock %}
 
 {% block static %}
+  <script>
+    $(document).ready(function () {
+      $("#button1").click(function(){
+        $("#button2").css("display","inline");
+        $("#no").css("display","inline");
+        $("#button1").css("display","none");
+        $("#yes").css("display","none");
+        $("input[name='radioName'][value=0]").attr("checked",true);
+      });
+      $("#button2").click(function(){
+        $("#button1").css("display","inline");
+        $("#yes").css("display","inline");
+        $("#button2").css("display","none");
+        $("#no").css("display","none");
+        $("input[name='radioName'][value=1]").attr("checked",true);
+      });
+    });
+  </script>
 {% endblock %}
 
 {% block content %}
-  <form action="/lost/upload/" class="am-form-group" method="get">
-    <div class="am-g"  style="padding: 2rem 0rem 8rem 2rem;">
+  <form action="/lost/upload/" class="am-form-group" method="post" enctype="multipart/form-data">
+    <div class="am-u-sm-10 am-u-sm-centered"  style="padding: 2rem 0rem 5rem 0rem;">
       <div class="am-u-sm-6"style="padding: 2rem 0rem 1rem 2rem;">
           <span class="am-icon-bookmark" id="test">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;物品类别</span>
       </div>
-      <div class="am-u-sm-6"style="padding: 2rem 0rem 1rem 2rem;">
+      <div class="am-u-sm-6"style="padding: 2rem 0rem 1rem 0rem;">
         <select id="category">
           {% for i in category%}
             <option value="{{i.id}}">{{ i.name }}</option>
@@ -27,102 +45,72 @@
       <div class="am-u-sm-6"style="padding: 0rem 0rem 1.2rem 2rem;">
         <span class="am-icon-location-arrow">&nbsp;&nbsp;&nbsp;&nbsp;丢失地点</span>
       </div>
-      <div class="am-u-sm-6"style="padding: 0rem 0rem 1.2rem 2rem;">
+      <div class="am-u-sm-6"style="padding: 0rem 0rem 1.2rem 0rem;">
         <select id="location">
           {% for i in location%}
             <option value="{{i.id}}">{{ i.name }}</option>
           {% endfor %}
         </select>
       </div>
+      <div class="am-g">
       <div class="am-u-sm-6" style="padding: 0rem 0rem 1.2rem 2rem;">
         <span class="am-icon-photo">&nbsp;&nbsp;&nbsp;上传图片</span>
       </div>
-      <div class="am-u-sm-4" style="padding: 0rem 0rem 1.2rem 0rem;">
-        hello world
+      <div class="am-u-sm-6" style="padding: 0rem 0rem 1rem 0rem;">
+                <input id="id_image" type="file"  name="image">
+      </div>
       </div>
       <div class="am-u-sm-6" style="padding: 0rem 0rem 1.2rem 2rem;">
         <span class="am-icon-send">&nbsp;&nbsp;&nbsp;电子邮箱</span>
       </div>
-      <div class="am-u-sm-4" style="padding: 0rem 2rem 1.2rem 0rem;">
+      <div class="am-u-sm-4" style="padding: 0rem 2rem 1.2rem 0rem; width: 2rem;">
         <input type="email" id="email">
       </div>
       <div class="am-u-sm-6" style="padding: 0rem 0rem 1.2rem 2rem;">
         <span class="am-icon-phone">&nbsp;&nbsp;&nbsp;&nbsp;联系方式</span>
       </div>
-      <div class="am-u-sm-4" style="padding: 0rem 2rem 1.2rem 0rem;">
+      <div class="am-u-sm-6" style="padding: 0rem 2rem 1.2rem 0rem;">
         <input type="text" id="phone">
       </div>
       <div class="am-u-sm-6" style="padding: 0rem 0rem 1.2rem 2rem;">
         <span class="am-icon-info">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;备注（选填）</span>
       </div>
-      <div class="am-u-sm-4" style="padding: 0rem 2rem 1.2rem 0rem;">
+      <div class="am-u-sm-6" style="padding: 0rem 2rem 1.2rem 0rem;">
         <input type="text" id="remark">
       </div>
     </div>
-       </div>
-    <div class="am-g">
-      <div id="example"></div>
+    <div class="am-g" style="padding: 12rem 0rem 1rem 1rem;">
+      <div class="am-g" id="appreciate" style="padding: 0rem 0rem 0rem 0rem;">
+          <div class="am-u-sm-8" style="padding: 0.5rem 0rem 0rem 3rem; font-size: 1.5rem">是否愿意感谢捡到您宝贝的同学？</div>
+          <div class="am-btn am-btn-primary am-round" id="button1" style="display: inline" >我愿意！</div>
+          <div class="am-btn am-btn-secondary am-round" id="button2" style="display: none">不愿意！</div>
+      </div>
+      <div class="am-u-sm-10" id="no" style="display: none;padding: 2rem 0rem 0rem 10rem; font-size: 1.2rem ">丢丢祝愿失主早日与自己的宝贝重逢！</div>
+      <div class="am-g" id="yes" style=" display: inline">
+        <div id="text" style="padding: 0rem 0rem 0rem 3rem; font-size: 1.2rem">请选择以下一项感谢方式</div>
+          <div class="am-u-sm-12" style="padding: 0rem 0rem 0rem 3rem;">
+            <label class="am-radio-inline">
+              <input type="radio" name="appr1" value="1" data-am-ucheck  checked>
+              请吃饭
+            </label>
+            <label class="am-radio-inline">
+              <input type="radio" name="appr1" value="2" data-am-ucheck>
+              发红包
+            </label>
+            <label class="am-radio-inline">
+              <input type="radio" name="appr1" value="3" data-am-ucheck>
+              感谢信
+            </label>
+            <label class="am-radio-inline">
+              <input type="radio" name="appr1" value="4" data-am-ucheck>
+              啥都行
+            </label>
+          </div>
+      </div>
     </div>
-    <div class="am-g">
-      <button type="submit" class="am-btn am-btn-default" value="提交">提交</button>
+    <div class="am-u-sm-3 am-u-sm-centered">
+      <button type="submit" class="am-btn am-btn-success" style="text-align: center" value="提交">提交</button>
     </div>
   </form>
-      <script type="text/babel">
-          var DateType = React.createClass(
-    static defaultProps = {
-        checkout=true
-    };
-    static PropTypes = {
-        checkout: React.PropTypes.bool
-    };
 
-            render: function() {
-
-            if(this.state.checkout){
-                return (
-                  <div class="am-g">
-                     hello
-                  </div>
-                );
-            }
-            return (
-                  <div class="am-g" style="color: #b9b7b7;">
-                    丢丢祝愿失主早日与自己的宝贝重逢！
-                  </div>
-                );
-            }
-          });
-
-
-          var Date = React.createClass({
-            getInitialState: function() {
-            return {appreciate: true};
-            },
-            handleClick: function() {
-              this.setState({appreciate: !this.state.appreciate});
-            },
-            render: function() {
-              var type1 = this.state.appreciate ? "am-btn am-btn-default":"am-btn am-btn-success";
-              var text = this.state.appreciate ? 'no':'yes';
-              return (
-                <div class="am-g" id="appreciation">
-                <div class="am-g" id="willing">
-                  <div class="am-u-sm-8">
-                     是否愿意感谢捡到您宝贝的同学？
-                  </div>
-                <div class="am-u-sm-4">
-                  <button type="button" class={type1} onClick={this.handleClick}>{text}</button>
-                </div>
-                <DateType checkout={this.state.appreciate} />
-               </div>
-               </div>
-              );
-            }
-          });
-
-        ReactDOM.render(
-          <Date />,
-          document.getElementById('example')
-        );
-      </script>
 {% endblock %}

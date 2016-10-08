@@ -4,8 +4,11 @@ from django.core import serializers
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.conf import settings
+from django import forms
+from django.core.exceptions import ObjectDoesNotExist
 
 from .models import Lost
+from found.models import Found
 from main.models import Category, Location
 
 
@@ -37,10 +40,10 @@ def get_items(request):
     params = request.GET
 
     page = int(params['page'])
-    category = int(params['category'])
-    location = int(params['location'])
+    category = int(params['selector1_val'])
+    location = int(params['selector2_val'])
 
-    data = Lost.objects.all().filter(paired=False).order_by('-date')
+    data = Found.objects.all().filter(paired=False).order_by('-date')
     if category > 0:
         data = data.filter(category=category)
     if location > 0:
@@ -109,7 +112,7 @@ def get_item(request):
     id = int(params['id'])
 
     try:
-        data = Lost.objects.get(pk=id)
+        data = Found.objects.get(pk=id)
     except ObjectDoesNotExist:
         return JsonResponse(data)
 
@@ -126,6 +129,7 @@ def get_item(request):
     return JsonResponse(data)
 
 
+
 def new_lost(request):
     category = Category.objects.all().order_by("name")
     location = Location.objects.all().order_by("name")
@@ -135,17 +139,6 @@ def new_lost(request):
         'category' : category
     }
     return render(request, 'lost/newLost.html', context)
-
-
-def search(request):
-    location = request.GET['location']
-    category = request.GET['category']
-    context = {
-        'MEDIA_URL': settings.MEDIA_URL,
-        'location' : location,
-        'category' : category
-    }
-    return render(request, 'lost/checklist.html', context)
 
 
 def upload_lost_item(request):
@@ -158,11 +151,33 @@ def upload_lost_item(request):
     }
     return render(request, 'lost/uploadLostItem.html', context)
 
+class UploadForm(forms.Form):
+    location = forms.CharField()
+    category =forms.CharField()
+    email=forms.CharField()
+    phone=forms.CharField()
+    remark = forms.CharField()
+    img = forms.FileField()
+    appr1 = forms.CharField()
+
+
 def upload(request):
-    location = request.GET['location'];
-    category = request.GET['category'];
-    email = request.GET['email'];
-    phone = request.GET['phone'];
-    remark = request.GET['remark'];
-    Lost.objects.create(user='999999',category=category,location=location,phone=phone,email=email,remark=remark)
+    if request.method == 'POST':
+        form = UploadForm(request.POST,request.FILES)
+        if form.is_valid():
+            item=Lost()
+            item.item_id= len(Lost.objects.all())+1
+            item.location = form.cleaned_data['location']
+            item.category = form.cleaned_data['category']
+            item.email = form.cleaned_data['email']
+            item.phone = form.cleaned_data['phone']
+            item.remark = form.cleaned_data['remark']
+            item.picture = form.cleaned_data['img']
+            if form.cleaned_data['appr1'] == 0:
+                item.thank = "0"
+            else:
+                item.thank = "1"
+            item.save()
+            os.rename(item.img.path,settings.MEDIA_ROOT+"/lost/"+str(len(LostItem.objects.all()))+".jpg")
+            item.save()
     return render(request, 'lost/uploadResult.html')

@@ -3,6 +3,21 @@ var selector2_val = NaN;
 var page = NaN;
 var end_of_list = false;
 
+var getUrlParameter = function getUrlParameter(sParam) {
+  var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+    sURLVariables = sPageURL.split('&'),
+    sParameterName,
+    i;
+
+  for (i = 0; i < sURLVariables.length; i++) {
+    sParameterName = sURLVariables[i].split('=');
+
+    if (sParameterName[0] === sParam) {
+      return sParameterName[1] === undefined ? true : sParameterName[1];
+    }
+  }
+};
+
 $.ajaxSetup({
     async: false
 });
@@ -66,12 +81,16 @@ var init = function() {
 
   var selector1_init = function(data) {
     selector1_val = data.default;
+    tmp = getUrlParameter("selector1");
+
+    var flag = false;
     $.each(data.data, function(key, value) {
       $("#selector1").append(
         $("<option></option>")
           .attr("value", value.pk)
           .text(value.name)
-      )
+            );
+      if (value.pk == tmp) selector2_val = tmp;
     });
 
     $('#selector1 option[value="' + selector1_val + '"]').attr('selected', 'selected');
@@ -94,6 +113,7 @@ var init = function() {
 
   $.getJSON(selector2_init_url, selector2_init);
 
+
   loadData();
 
   var selectorCSS = function() {
@@ -105,7 +125,7 @@ var init = function() {
       $this.after('<div class="select-styled"></div>');
 
       var $styledSelect = $this.next('div.select-styled');
-      $styledSelect.text($this.children('option').eq(0).text());
+            $styledSelect.text($this.children('option[selected=selected]').text());
 
       var $list = $('<ul />', {
         'class': 'select-options'
@@ -117,6 +137,7 @@ var init = function() {
           rel: $this.children('option').eq(i).val()
         }).appendTo($list);
       }
+
 
       var $listItems = $list.children('li');
 
