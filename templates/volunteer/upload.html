@@ -9,7 +9,21 @@
 {% block content %}
   <form method="post" class="am-form" enctype="multipart/form-data" >
 {{uf.as_p}}
-<input type="submit" value="ok"/>
+<input class="am-btn" style="width:200px; height:45px" type="submit" value="Upload"/>
 </form>
     <p style="color: green"> {{ message }} </p>
+{% endblock %}
+
+{% block controller %}
+    <script type="text/javascript">
+        $("a:eq(0)").click(function(){
+            $.get("../index/")
+        })
+
+        $(document).ready(function(){
+            $("#id_img").attr("class","am-btn");
+            $("#id_img").attr("style","border: 1px solid #bbbbbb")
+        })
+    </script>
+
 {% endblock %}

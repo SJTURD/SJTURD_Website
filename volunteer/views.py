@@ -11,7 +11,8 @@ from django import forms
 from django.http import HttpResponse
 
 from django.contrib.auth.models import User
-from volunteer.models import Lost
+from found.models import Found
+from main.models import Category, Location
 
 
 def index_init(request):
@@ -22,20 +23,20 @@ def index(request):
 
     if request.session["logged"]==1:
         context={}
-        context['numLostItem']=len(Lost.objects.all())
+        context['numLostItem']=len(Found.objects.all())
         context['rangeNumLostItem']=range(context['numLostItem'])
         context['lostItem']={}
-        for i in Lost.objects.all():
-            index=i.item_id
+        for i in Found.objects.all():
+            index=i.pk
             context['lostItem'][index]={}
-            context['lostItem'][index]['id']=i.item_id
-            context['lostItem'][index]['src']="/media/lost/"+str(i.item_id)+".jpg"
+            context['lostItem'][index]['id']=i.pk
+            context['lostItem'][index]['src']="/media/"+i.picture.name
             context['lostItem'][index]['catagory']=i.category
-            context['lostItem'][index]['description']=i.description
-            context['lostItem'][index]['lostTime']=i.lost_time
-            context['lostItem'][index]['owner']=i.owner
-            context['lostItem'][index]['contact']=i.contact
-            context['lostItem'][index]['status']=i.status
+            context['lostItem'][index]['description']=i.detail
+            context['lostItem'][index]['lostTime']=i.date
+            # context['lostItem'][index]['owner']=i.owner
+            context['lostItem'][index]['contact']=i.phone
+            context['lostItem'][index]['status']=i.paired
         context['lostItemValues']=context['lostItem'].values()
         return render_to_response('volunteer/index.html',context)
     else:
@@ -45,39 +46,56 @@ def login(request):
     username = request.POST.get('username',False) #Post[] -> Post.get(,False)
     password = request.POST.get('password',False)
     tmp=User.objects.filter(username=username)
-    error_message = {'message':"Wrong user or password!"}
+
 
     if len(tmp)>0:
-        if tmp[0].password==password:
-            request.session['logged']=1
-            return index(request)
+        if tmp[0].is_staff:
+            if tmp[0].password == password:
+                request.session['logged'] = 1
+                return index(request)
+            else:
+                error_message = {'message': "Wrong password!"}
+                return render_to_response('volunteer/login.html', error_message)
         else:
-            return render_to_response('volunteer/login.html',error_message)
+            error_message = {'message': "Permission denied!"}
+            return render_to_response('volunteer/login.html', error_message)
     else:
+        error_message = {'message': "User does not exist!"}
         return render_to_response('volunteer/login.html',error_message)
 
 # upload part
 class UserForm(forms.Form):
-    category = forms.CharField()
-    description =forms.CharField()
-    owner=forms.CharField()
-    contact=forms.CharField()
-    img = forms.FileField()
+    CATEGORY_LIST=(
+        (1,"第一分类"),
+        (2,"第二分类"),
+        (3,"第三分类")
+    )
+    category = forms.IntegerField(widget=forms.Select(choices=CATEGORY_LIST))
+    LOCATION_LIST=(
+        (1,"第一地点"),
+        (2,"第二地点"),
+        (3,"第三地点")
+    )
+    location = forms.IntegerField(widget=forms.Select(choices=LOCATION_LIST))
+    description = forms.CharField(label="描述")
+    # owner=forms.CharField(label="物主")
+    contact=forms.CharField(label="联系方式")
+    img = forms.FileField(label="图片")
 
 def upload_view(request):
     if request.method == "POST":
         uf = UserForm(request.POST,request.FILES)
         if uf.is_valid():
-            item=Lost()
-            item.item_id= len(Lost.objects.all())+1
-            item.category = uf.cleaned_data['category']
-            item.description =uf.cleaned_data['description']
-            item.owner=uf.cleaned_data['owner']
-            item.contact=uf.cleaned_data['contact']
-            item.img = uf.cleaned_data['img']
+            item=Found()
+            item.category=Category.objects.get(id=uf.cleaned_data['category'])
+            # item.location=Category.objects.get(id=uf.cleaned_data['location'])
+            item.detail =uf.cleaned_data['description']
+            # item.owner=uf.cleaned_data['owner']
+            item.phone=uf.cleaned_data['contact']
+            item.picture = uf.cleaned_data['img']
             item.save()
-            os.rename(item.img.path,settings.MEDIA_ROOT+"/lost/"+str(len(Lost.objects.all()))+".jpg")
-            item.save()
+            # os.rename(item.img.path,settings.MEDIA_ROOT+"/lost/"+str(len(Lost.objects.all()))+".jpg")
+            # item.save()
             uf=UserForm()
             message="Upload Completed!"
     else:
@@ -89,7 +107,7 @@ def upload_view(request):
 def retrieve(request):
     retrieveList=request.POST.getlist('retrieveCheckBox')
     for i in retrieveList:
-        a=Lost.objects.get(item_id=i)
-        a.status=1
+        a=Found.objects.get(pk=i)
+        a.paired=1
         a.save()
     return index(request)

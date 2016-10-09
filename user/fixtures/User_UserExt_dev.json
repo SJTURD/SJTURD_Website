@@ -65,7 +65,7 @@
     "fields": {
       "username": "staff4",
       "password": "pbkdf2_sha256$30000$qq6r9g6TVNuI$wCtjoUnATlH19WmXE8iqeNkHjxTwM9bHPQhDo2k14FI=",
-      "is_staff": false,
+      "is_staff": true,
       "is_superuser": false
     },
     "_comment": "password is 'test'"

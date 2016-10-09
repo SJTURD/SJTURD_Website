@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'lost.apps.LostConfig',
     'found.apps.FoundConfig',
     'volunteer.apps.VolunteerConfig',
-    'database'
+
 ]
 
 MIDDLEWARE = [
