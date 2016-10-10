@@ -22,6 +22,17 @@ def item_list(request):
     return render(request, 'lost/itemList.html', context)
 
 
+def lost_list(request):
+    context = {
+        'MEDIA_URL': settings.MEDIA_URL,
+        'selector1_init_url': '/main/api/getCategories',
+        'selector2_init_url': '/main/api/getLocations',
+        'items_url': '/lost/api/getItems',
+    }
+
+    return render(request, 'lost/lostList.html', context)
+
+
 def get_items(request):
     ITEMS_PER_PAGE = 10
 
@@ -149,8 +160,18 @@ def upload_lost_item(request):
     return render(request, 'lost/uploadLostItem.html', context)
 
 class UploadForm(forms.Form):
-    location = forms.CharField()
-    category =forms.CharField()
+    CATEGORY_LIST=(
+        (1,"第一分类"),
+        (2,"第二分类"),
+        (3,"第三分类")
+    )
+    category = forms.IntegerField(widget=forms.Select(choices=CATEGORY_LIST))
+    LOCATION_LIST=(
+        (1,"第一地点"),
+        (2,"第二地点"),
+        (3,"第三地点")
+    )
+    location = forms.IntegerField(widget=forms.Select(choices=LOCATION_LIST))
     email=forms.CharField()
     phone=forms.CharField()
     remark = forms.CharField()
@@ -163,18 +184,16 @@ def upload(request):
         form = UploadForm(request.POST,request.FILES)
         if form.is_valid():
             item=Lost()
-            item.item_id= len(Lost.objects.all())+1
-            item.location = form.cleaned_data['location']
-            item.category = form.cleaned_data['category']
+#            item.item_id= len(Lost.objects.all())+1
+            item.location = Location.objects.get(id=form.cleaned_data['location'])
+            item.category = Category.objects.get(id=form.cleaned_data['category'])
             item.email = form.cleaned_data['email']
             item.phone = form.cleaned_data['phone']
             item.remark = form.cleaned_data['remark']
             item.picture = form.cleaned_data['img']
-            if form.cleaned_data['appr1'] == 0:
-                item.thank = "0"
-            else:
-                item.thank = "1"
-            item.save()
-            os.rename(item.img.path,settings.MEDIA_ROOT+"/lost/"+str(len(LostItem.objects.all()))+".jpg")
+#            if form.cleaned_data['appr1'] == 0:
+#                item.thank = "0"
+#            else:
+#                item.thank = "1"
             item.save()
     return render(request, 'lost/uploadResult.html')

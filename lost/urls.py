@@ -9,5 +9,6 @@ urlpatterns = [
     url(r'^api/getItem', views.get_item, name='get_lost_item'),
     url(r'^newLost$', views.new_lost, name='new_lost'),
     url(r'^uploadLostItem', views.upload_lost_item, name='upload_lost_item'),
-    url(r'^upload', views.upload, name='upload_result')
+    url(r'^upload', views.upload, name='upload_result'),
+    url(r'^lostList$', views.lost_list, name='lost_list')
 ]
