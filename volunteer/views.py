@@ -5,6 +5,7 @@ from django.conf import settings
 from django.core import serializers
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.hashers import check_password
 from django.shortcuts import render_to_response 
 from django.template import RequestContext
 from django import forms
@@ -50,7 +51,7 @@ def login(request):
 
     if len(tmp)>0:
         if tmp[0].is_staff:
-            if tmp[0].password == password:
+            if check_password(password,tmp[0].password):
                 request.session['logged'] = 1
                 return index(request)
             else:
