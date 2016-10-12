@@ -176,12 +176,13 @@ class UploadForm(forms.Form):
     location = forms.IntegerField(widget=forms.Select(choices=LOCATION_LIST))
     email=forms.CharField()
     phone=forms.CharField()
-    remark = forms.CharField()
+    remark = forms.CharField(required=False)
     img = forms.FileField()
-    appr1 = forms.IntegerField
+    appr1 = forms.IntegerField()
 
 
 def upload(request):
+    global message
     if request.method == 'POST':
         form = UploadForm( request.POST, request.FILES )  # 有文件上传要传如两个字段
         if form.is_valid():
