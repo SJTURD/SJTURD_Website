@@ -1,4 +1,5 @@
 {% extends 'list_base.html' %}
+{% load static %}
 
 {% block title %}
   寻物启事
@@ -8,5 +9,21 @@
   寻物启事
 {% endblock %}
 
-{% block beforeContent %}
+{% block controller %}
+  <script type="text/javascript">
+  document.getElementById('selectorA').style.display = "none";
+  document.getElementById('selectorB').style.display = "none";
+  </script>
+      <script type="text/javascript">
+    var MEDIA_URL = "{{ MEDIA_URL }}";
+    var selector1_init_url = "{{ selector1_init_url }}";
+    var selector2_init_url = "{{ selector2_init_url }}";
+    var items_url = "{{ items_url }}";
+  </script>
+
+  <script type="text/javascript" src="{% static "js/list_base_controller.js" %}"></script>
+
+  <script type="text/javascript">
+    init();
+  </script>
 {% endblock %}

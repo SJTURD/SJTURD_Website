@@ -3,6 +3,7 @@ import json
 from django.core import serializers
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
+from django.shortcuts import render_to_response
 from django.conf import settings
 from django import forms
 from django.core.exceptions import ObjectDoesNotExist
@@ -159,6 +160,7 @@ def upload_lost_item(request):
     }
     return render(request, 'lost/uploadLostItem.html', context)
 
+
 class UploadForm(forms.Form):
     CATEGORY_LIST=(
         (1,"第一分类"),
@@ -176,24 +178,29 @@ class UploadForm(forms.Form):
     phone=forms.CharField()
     remark = forms.CharField()
     img = forms.FileField()
-    appr1 = forms.CharField()
+    appr1 = forms.IntegerField
 
 
 def upload(request):
     if request.method == 'POST':
-        form = UploadForm(request.POST,request.FILES)
+        form = UploadForm( request.POST, request.FILES )  # 有文件上传要传如两个字段
         if form.is_valid():
             item=Lost()
-#            item.item_id= len(Lost.objects.all())+1
-            item.location = Location.objects.get(id=form.cleaned_data['location'])
+    #       item.item_id= len(Lost.objects.all())+1
             item.category = Category.objects.get(id=form.cleaned_data['category'])
+            item.location = Location.objects.get(id=form.cleaned_data['location'])
             item.email = form.cleaned_data['email']
             item.phone = form.cleaned_data['phone']
             item.remark = form.cleaned_data['remark']
             item.picture = form.cleaned_data['img']
-#            if form.cleaned_data['appr1'] == 0:
-#                item.thank = "0"
-#            else:
-#                item.thank = "1"
+            if form.cleaned_data['appr1'] == 0:
+                item.thank = "0"
+            else:
+                item.thank = "1"
             item.save()
-    return render(request, 'lost/uploadResult.html')
+            message = "succeed"
+
+        else:
+            message = "failed"
+
+    return render_to_response('lost/uploadResult.html',{'message':message})
