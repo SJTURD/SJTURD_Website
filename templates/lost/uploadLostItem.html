@@ -9,24 +9,8 @@
 {% endblock %}
 
 {% block static %}
-  <script>
-    $(document).ready(function () {
-      $("#button1").click(function(){
-        $("#button2").css("display","inline");
-        $("#no").css("display","inline");
-        $("#button1").css("display","none");
-        $("#yes").css("display","none");
-        $("input[name='appr1'][value=0]").attr("checked",true);
-      });
-      $("#button2").click(function(){
-        $("#button1").css("display","inline");
-        $("#yes").css("display","inline");
-        $("#button2").css("display","none");
-        $("#no").css("display","none");
-        $("input[name='appr1'][value=1]").attr("checked",true);
-      });
-    });
-  </script>
+  <script src="{% static "js/switchery.js" %}"></script>
+  <link rel="stylesheet" href="{% static "css/switchery.css" %}"/>
 {% endblock %}
 
 {% block content %}
@@ -82,10 +66,32 @@
     <div class="am-g" style="padding: 12rem 0rem 1rem 1rem;">
       <div class="am-g" id="appreciate" style="padding: 0rem 0rem 0rem 0rem;">
           <div class="am-u-sm-8" style="padding: 0.5rem 0rem 0rem 3rem; font-size: 1.5rem">是否愿意感谢捡到您宝贝的同学？</div>
-          <div class="am-btn am-btn-primary am-round" id="button1" style="display: inline" >我愿意！</div>
-          <div class="am-btn am-btn-secondary am-round" id="button2" style="display: none">不愿意！</div>
+          <div class="am-u-sm-4" style="padding: 0rem 0rem 0rem 3rem;">
+          <input type="checkbox" class="js-switch" checked>
+                <script>
+                    var elem = document.querySelector('.js-switch');
+                    var init = new Switchery(elem);
+                    elem.onchange = function() {
+                        if (!elem.checked) {
+                            $("#button2").css("display", "inline");
+                            $("#no").css("display", "inline");
+                            $("#button1").css("display", "none");
+                            $("#yes").css("display", "none");
+                            $("input[name='appr1'][value=0]").attr("checked", true);
+
+                        }
+                        else{
+                            $("#button1").css("display", "inline");
+                            $("#yes").css("display", "inline");
+                            $("#button2").css("display", "none");
+                            $("#no").css("display", "none");
+                            $("input[name='appr1'][value=1]").attr("checked", true);
+                        }
+                    };
+                </script>
+          </div>
       </div>
-      <div class="am-u-sm-10" id="no" style="display: none;padding: 2rem 0rem 0rem 10rem; font-size: 1.2rem ">丢丢祝愿失主早日与自己的宝贝重逢！</div>
+      <div class="am-u-sm-10" id="no" style="display: none;padding: 2rem 0rem 0rem 8rem; font-size: 1.2rem ">丢丢祝愿失主早日与自己的宝贝重逢！</div>
       <div class="am-g" id="yes" style=" display: inline">
         <div id="text" style="padding: 0rem 0rem 0rem 3rem; font-size: 1.2rem">请选择以下一项感谢方式</div>
           <div class="am-u-sm-12" id = appr style="padding: 0rem 0rem 0rem 3rem;">
