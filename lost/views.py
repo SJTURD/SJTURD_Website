@@ -3,6 +3,7 @@ import json
 from django.core import serializers
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
+from django.shortcuts import render_to_response
 from django.conf import settings
 from django import forms
 from django.core.exceptions import ObjectDoesNotExist
@@ -20,6 +21,17 @@ def item_list(request):
     }
 
     return render(request, 'lost/itemList.html', context)
+
+
+def lost_list(request):
+    context = {
+        'MEDIA_URL': settings.MEDIA_URL,
+        'selector1_init_url': '/main/api/getCategories',
+        'selector2_init_url': '/main/api/getLocations',
+        'items_url': '/lost/api/getItems',
+    }
+
+    return render(request, 'lost/lostList.html', context)
 
 
 def get_items(request):
@@ -149,24 +161,36 @@ def upload_lost_item(request):
     }
     return render(request, 'lost/uploadLostItem.html', context)
 
+
 class UploadForm(forms.Form):
-    location = forms.CharField()
-    category =forms.CharField()
+    CATEGORY_LIST=(
+        (1,"第一分类"),
+        (2,"第二分类"),
+        (3,"第三分类")
+    )
+    category = forms.IntegerField(widget=forms.Select(choices=CATEGORY_LIST))
+    LOCATION_LIST=(
+        (1,"第一地点"),
+        (2,"第二地点"),
+        (3,"第三地点")
+    )
+    location = forms.IntegerField(widget=forms.Select(choices=LOCATION_LIST))
     email=forms.CharField()
     phone=forms.CharField()
-    remark = forms.CharField()
+    remark = forms.CharField(required=False)
     img = forms.FileField()
-    appr1 = forms.CharField()
+    appr1 = forms.IntegerField()
 
 
 def upload(request):
+    global message
     if request.method == 'POST':
-        form = UploadForm(request.POST,request.FILES)
+        form = UploadForm( request.POST, request.FILES )  # 有文件上传要传如两个字段
         if form.is_valid():
             item=Lost()
-            item.item_id= len(Lost.objects.all())+1
-            item.location = form.cleaned_data['location']
-            item.category = form.cleaned_data['category']
+    #       item.item_id= len(Lost.objects.all())+1
+            item.category = Category.objects.get(id=form.cleaned_data['category'])
+            item.location = Location.objects.get(id=form.cleaned_data['location'])
             item.email = form.cleaned_data['email']
             item.phone = form.cleaned_data['phone']
             item.remark = form.cleaned_data['remark']
@@ -176,6 +200,9 @@ def upload(request):
             else:
                 item.thank = "1"
             item.save()
-            os.rename(item.img.path,settings.MEDIA_ROOT+"/lost/"+str(len(LostItem.objects.all()))+".jpg")
-            item.save()
-    return render(request, 'lost/uploadResult.html')
+            message = "succeed"
+
+        else:
+            message = "failed"
+
+    return render_to_response('lost/uploadResult.html',{'message':message})
