@@ -1,2 +1,4 @@
 Django==1.10
 Pillow==3.3.0
+numpy==1.11.1
+opencv-python==3.1.0

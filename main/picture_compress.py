@@ -20,9 +20,13 @@ def pic_compress(filename):
         extended_height = raw_height
         extended_width = raw_width
     elif raw_height * RATIO_WIDTH > raw_width * RATIO_HEIGHT:
+        raw_height = raw_height // RATIO_HEIGHT * RATIO_HEIGHT
+        raw_width = raw_width // RATIO_WIDTH * RATIO_WIDTH
         extended_height = raw_height // RATIO_HEIGHT * RATIO_HEIGHT
         extended_width = raw_height // RATIO_HEIGHT * RATIO_WIDTH
     else:
+        raw_height = raw_height // RATIO_HEIGHT * RATIO_HEIGHT
+        raw_width = raw_width // RATIO_WIDTH * RATIO_WIDTH
         extended_height = raw_width // RATIO_WIDTH * RATIO_HEIGHT
         extended_width = raw_width // RATIO_WIDTH * RATIO_WIDTH
 
@@ -33,7 +37,7 @@ def pic_compress(filename):
 
     for i in range(raw_height):
         for j in range(raw_width):
-            extended_img[start_height + i][start_width + j] = raw_img[i][j][:3].tolist() + [255]
+            extended_img[start_height + i][start_width + j] = raw_img[i][j][:].tolist() + [255]
 
     target_img = np.zeros((TARGET_HEIGHT, TARGET_WIDTH, 4), dtype=np.uint64)
     cnt = np.zeros((TARGET_HEIGHT, TARGET_WIDTH), dtype=np.uint64)
