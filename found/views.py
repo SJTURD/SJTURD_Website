@@ -113,7 +113,7 @@ def get_item(request):
 
     data = {
         'id': data.pk,
-        'img': data.picture.name,
+        'img': 'thumbtail_' + data.picture.split('.')[0] + '.png',
         'key': ['类别', '发现地点', '详细说明', '现所在地'],
         '类别': data.category.name,
         '发现地点': data.location.name,
