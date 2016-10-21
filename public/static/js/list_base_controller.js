@@ -37,6 +37,7 @@ var renderData = function(data) {
   $.each(data.data, function(index, value) {
     $('#item-list ul').append(
       $("<li></li>")
+        .attr("id", "item_" + value.id)
         .attr("onclick", "window.location.href='" + value.url + "'")
         .attr("class", "item am-thumbnail")
         .append($("<img/>")

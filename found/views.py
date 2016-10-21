@@ -64,6 +64,7 @@ def get_items(request):
         end_of_list = True
 
     data = [{
+                'id': str(i.pk),
                 'img': i.picture.name,
                 'url': 'item?id=' + str(i.pk),
                 'left_field': i.category.name,
