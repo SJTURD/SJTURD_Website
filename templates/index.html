@@ -1,17 +1,78 @@
-{% extends 'base.html' %}
+{% load static %}
 
-{% block title %}
-  首页
-{% endblock %}
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="format-detection" content="email=no">
 
-{% block topbar-title %}
-  首页
-{% endblock %}
+  <title>
+    首页 - 交大丢丢
+  </title>
 
-{% block content %}
-  <a href="/lost/newLost">我是失主</a><br>
-  <a href="/found/newFound">我是拾主</a><br>
-  <a href="/found/itemList">丢丢仓库</a><br>
-  <a href="/lost/lostList">招领启事</a><br>
-  <a href="/volunteer/index">我是志愿者</a><br>
-{% endblock %}
+  <link rel="stylesheet" href="{% static "css/amazeui.css" %}">
+  <link rel="stylesheet" href="{% static "css/base.css" %}">
+
+  <script type="text/javascript" src="{% static "js/browser.js" %}"></script>
+  <script type="text/javascript" src="{% static "js/jquery-3.1.0.js" %}"></script>
+  <script type="text/javascript" src="{% static "js/react.js" %}"></script>
+  <script type="text/javascript" src="{% static "js/react-dom.js" %}"></script>
+  <script type="text/javascript" src="{% static "js/amazeui.js" %}"></script>
+  <script type="text/javascript" src="{% static "js/base.js" %}"></script>
+
+  <link rel="icon" type="image/png" href="{% static "img/favicon.png" %}">
+
+</head>
+<body>
+  <div class="am-g">
+    <div class="am-u-sm-8 am-u-sm-centered" style="padding: 8rem 0rem 0rem 0rem;">
+      <img class="am-img-responsive" src="{% static "img/favicon.png" %}" />
+    </div>
+  </div>
+  <div class="am-g" style="padding: 4rem 6rem 0rem 6rem;border:none; border-bottom:solid 1px gray;">
+    <div class="am-u-sm-6" id="loser" style="color: #000000;text-align: center; font-size: 2rem;border:none; border-bottom:solid 3px black;">我是失主</div>
+    <div class="am-u-sm-6" id="founder" style="color: #000000;text-align: center; font-size: 2rem;border:none; ">我是拾主</div>
+  </div>
+  <div class="am-g" style="padding: 4rem 0rem 0rem 0rem;">
+  <form action="/lost/itemList" method="get" class="am-form">
+    <div class="am-g" style="padding: 0 0 2rem 0;">
+      <div class="am-u-sm-6" style="text-align: center; padding:0.5rem 0 0 2rem;">丢失物品类别</div>
+      <div class="am-u-sm-5">
+        <div class="am-form-group">
+          <select id="selector1" name="selector1">
+            {% for i in category%}
+              <option value="{{i.id}}">{{ i.name }}</option>
+            {% endfor %}
+          </select>
+          <span class="am-form-caret"></span>
+        </div>
+      </div>
+      <div class="am-u-sm-1"></div>
+    </div>
+    <div class="am-g">
+      <form action="/lost/itemList" method="get" class="am-form">
+      <div class="am-u-sm-6" style="text-align: center; padding:0.5rem 0 0 2rem;">丢失物品地点</div>
+      <div class="am-u-sm-5">
+        <div class="am-form-group">
+          <select id="selector2" name="selector2">
+            {% for i in location %}
+              <option value="{{i.id}}">{{ i.name }}</option>
+            {% endfor %}
+          </select>
+          <span class="am-form-caret"></span>
+        </div>
+      </div>
+      <div class="am-u-sm-1"></div>
+    </div>
+    <div class="am-g" style=" padding:2rem 0 0 0;">
+      <button type="submit" class="am-btn  am-btn-success am-center" style="text-align: center;font-size: 2rem;x">查看</button>
+    </div>
+  </div>
+</body>
+</html>
