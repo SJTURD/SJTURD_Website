@@ -1,3 +1,5 @@
+import os
+
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.conf import settings
@@ -65,7 +67,8 @@ def get_items(request):
 
     data = [{
                 'id': str(i.pk),
-                'img': i.picture.name,
+                'img': os.path.join(os.path.split(i.picture.name)[0],
+                                    'thumbnail_' + os.path.split(i.picture.name)[1].split('.')[0] + '.png'),
                 'url': 'item?id=' + str(i.pk),
                 'left_field': i.category.name,
                 'right_field': str(i.date.date())[5:],
@@ -113,7 +116,7 @@ def get_item(request):
 
     data = {
         'id': data.pk,
-        'img': 'thumbtail_' + data.picture.split('.')[0] + '.png',
+        'img': data.picture.name,
         'key': ['类别', '发现地点', '详细说明', '现所在地'],
         '类别': data.category.name,
         '发现地点': data.location.name,

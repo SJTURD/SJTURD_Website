@@ -1,4 +1,5 @@
 import json
+import os
 
 from django.core import serializers
 from django.http import HttpResponse, JsonResponse
@@ -82,7 +83,8 @@ def get_items(request):
 
     data = [{
                 'id': str(i.pk),
-                'img': i.picture.name,
+                'img': os.path.join(os.path.split(i.picture.name)[0],
+                                    'thumbnail_' + os.path.split(i.picture.name)[1].split('.')[0] + '.png'),
                 'url': 'item?id=' + str(i.pk),
                 'left_field': i.category.name,
                 'right_field': str(i.date.date())[5:],
