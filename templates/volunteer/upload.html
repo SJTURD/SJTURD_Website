@@ -9,8 +9,11 @@
 {% block content %}
   <form method="post" class="am-form" enctype="multipart/form-data" >
 {{uf.as_p}}
-<input class="am-btn" style="width:200px; height:45px" type="submit" value="Upload"/>
+
+      <div class="am-btn upload-photo">上传图片</div>
+<input class="am-btn" style="width:100%; height:5rem; position:fixed; bottom:0" type="submit" value="上传"/>
 </form>
+
     <p style="color: green"> {{ message }} </p>
 {% endblock %}
 
@@ -20,9 +23,30 @@
             $.get("../index/")
         })
 
+        var pic=function(){
+            if ($("[name='img']")[0].files[0]!=undefined){
+                $(".upload-photo").html($("[name='img']")[0].files[0].name);
+            }
+        }
+
         $(document).ready(function(){
-            $("#id_img").attr("class","am-btn");
-            $("#id_img").attr("style","border: 1px solid #bbbbbb")
+            $("#id_img").hide();
+            $("p:eq(4)").hide();
+            $(".upload-photo").attr("style","text-align:center; width:100%; background: #ffffff;height:5rem; margin-top: 2rem; padding: 1.5rem");
+            $(".upload-photo").click(function(){
+                $("#id_img").click();
+            })
+            $(".topbar-left a").attr("href","/volunteer/");
+            $("label:eq(0)").html("分类：");
+            $("label:eq(1)").html("地点：");
+
+
+
+
+            setInterval("pic()",300);
+
+
+{#            $("[value='Upload']").attr("value","上传");#}
         })
     </script>
 

@@ -10,7 +10,7 @@ urlpatterns = [
     url(r'^api/getItem', views.get_item, name='vol_get_found_item'),
 
     url(r'^login/$', views.login, name="vol login view"),
-    url(r'^index/$', views.index_init, name="vol index"),
+    url(r'^$', views.index_init, name="vol index"),
     url(r'^upload/$', views.upload_view, name="vol upload view"),
     # url(r'^retrieve$', views.retrieve_view, name = "vol retrieve view"),
     url(r'^api/login', views.login, name="vol login"),
