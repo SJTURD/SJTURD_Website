@@ -1,4 +1,4 @@
-from math import gcd
+import math
 import os
 
 import numpy as np
@@ -11,8 +11,8 @@ def pic_compress(filename):
 
     TARGET_HEIGHT = 256
     TARGET_WIDTH = 192
-    RATIO_HEIGHT = TARGET_HEIGHT // gcd(TARGET_HEIGHT, TARGET_WIDTH)
-    RATIO_WIDTH = TARGET_WIDTH // gcd(TARGET_HEIGHT, TARGET_WIDTH)
+    RATIO_HEIGHT = TARGET_HEIGHT // math.gcd(TARGET_HEIGHT, TARGET_WIDTH)
+    RATIO_WIDTH = TARGET_WIDTH // math.gcd(TARGET_HEIGHT, TARGET_WIDTH)
 
     raw_img = cv2.imread(filename, cv2.IMREAD_COLOR)
 
