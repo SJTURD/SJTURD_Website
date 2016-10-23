@@ -53,9 +53,7 @@ var renderData = function(data) {
             .append(value.right_field))
           .append($("<div></div>")
             .attr("class", "bottom_field am-u-sm-12")
-            .append(value.bottom_field)
-          )
-        )
+            .append(value.bottom_field)))
     )
   });
 
