@@ -2,10 +2,18 @@ from django.http import JsonResponse
 from django.shortcuts import render
 
 from main.models import Category, Location
+from django.conf import settings
 
 
 def index(request):
-    return render(request, 'index.html')
+    category = Category.objects.all().order_by("name")
+    location = Location.objects.all().order_by("name")
+    context = {
+        'MEDIA_URL': settings.MEDIA_URL,
+        'location' : location,
+        'category' : category
+    }
+    return render(request, 'index.html', context)
 
 
 def get_categories(request):
