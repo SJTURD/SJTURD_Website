@@ -1924,9 +1924,10 @@ fieldset[disabled] .am-btn-danger.am-active {
   border-color: #d93c37;
 }
 .am-btn-success {
+  width: 70%;
   color: #fff;
-  background-color: #5eb95e;
-  border-color: #5eb95e;
+  background-color: #000000;
+  border-color: #000000;
 }
 a.am-btn-success:visited {
   color: #fff;
@@ -1937,17 +1938,17 @@ a.am-btn-success:visited {
 .am-btn-success.am-active,
 .am-dropdown.am-active .am-btn-success.am-dropdown-toggle {
   color: #fff;
-  border-color: #429842;
+  border-color: #000000;
 }
 .am-btn-success:hover,
 .am-btn-success:focus {
-  background-color: #4aaa4a;
+  background-color: #000000;
 }
 .am-btn-success:active,
 .am-btn-success.am-active,
 .am-dropdown.am-active .am-btn-success.am-dropdown-toggle {
   background-image: none;
-  background-color: #3f913f;
+  background-color: #000000;
 }
 .am-btn-success.am-disabled,
 .am-btn-success[disabled],
@@ -1964,12 +1965,12 @@ fieldset[disabled] .am-btn-success:active,
 .am-btn-success.am-disabled.am-active,
 .am-btn-success[disabled].am-active,
 fieldset[disabled] .am-btn-success.am-active {
-  background-color: #5eb95e;
-  border-color: #5eb95e;
+  background-color: #000000;
+  border-color: #000000;
 }
 .am-btn-group .am-btn-success,
 .am-btn-group-stacked .am-btn-success {
-  border-color: #4db14d;
+  border-color: #000000;
 }
 /* Style links like a button */
 .am-btn-link {

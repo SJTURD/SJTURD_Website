@@ -36,13 +36,27 @@
           {% endfor %}
         </select>
       </div>
-      <div class="am-g">
       <div class="am-u-sm-6" style="padding: 0rem 0rem 1.2rem 2rem;">
         <span class="am-icon-photo">&nbsp;&nbsp;&nbsp;上传图片</span>
       </div>
       <div class="am-u-sm-6" style="padding: 0rem 0rem 1rem 0rem;">
-                <input id="id_image" type="file"  name="img" required>
-      </div>
+          <div class="am-form-group am-form-file">
+            <button type="button" class="am-btn am-btn-default am-btn-sm">
+              <i class="am-icon-cloud-upload"></i> 选择要上传的文件</button>
+            <input id="id_image" type="file" name="img" required>
+          </div>
+          <div id="file-list"></div>
+          <script>
+              $(function() {
+                $('#id_image').on('change', function() {
+                  var fileNames = '';
+                  $.each(this.files, function() {
+                    fileNames += '<span class="am-badge">' + this.name + '</span> ';
+                  });
+                  $('#file-list').html(fileNames);
+                });
+              });
+          </script>
       </div>
       <div class="am-u-sm-6" style="padding: 0rem 0rem 1.2rem 2rem;">
         <span class="am-icon-send">&nbsp;&nbsp;&nbsp;电子邮箱</span>
