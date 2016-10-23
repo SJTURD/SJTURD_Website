@@ -6,6 +6,9 @@ import cv2
 
 
 def pic_compress(filename):
+    while filename[0] == '\\' or filename[0] == '/':
+        filename = filename[1:]
+
     TARGET_HEIGHT = 256
     TARGET_WIDTH = 192
     RATIO_HEIGHT = TARGET_HEIGHT // gcd(TARGET_HEIGHT, TARGET_WIDTH)
