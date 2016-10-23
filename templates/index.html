@@ -25,21 +25,20 @@
   <script type="text/javascript" src="{% static "js/react-dom.js" %}"></script>
   <script type="text/javascript" src="{% static "js/amazeui.js" %}"></script>
   <script type="text/javascript" src="{% static "js/base.js" %}"></script>
-
-  <link rel="icon" type="image/png" href="{% static "img/favicon.png" %}">
+  <script type="text/javascript" src="{% static "js/index.js" %}"></script>
+  <link rel="icon" type="image/png" href="{% static "img/logo_tmp.png" %}">
 
 </head>
 <body>
-  <div class="am-g">
-    <div class="am-u-sm-8 am-u-sm-centered" style="padding: 8rem 0rem 0rem 0rem;">
-      <img class="am-img-responsive" src="{% static "img/favicon.png" %}" />
-    </div>
+  <div class="am-g" style="text-align: center;padding: 5rem 0 0 0">
+
+      <img  src="{% static "img/logo_tmp.png" %}" />
   </div>
   <div class="am-g" style="padding: 4rem 6rem 0rem 6rem;border:none; border-bottom:solid 1px gray;">
-    <div class="am-u-sm-6" id="loser" style="color: #000000;text-align: center; font-size: 2rem;border:none; border-bottom:solid 3px black;">我是失主</div>
-    <div class="am-u-sm-6" id="founder" style="color: #000000;text-align: center; font-size: 2rem;border:none; ">我是拾主</div>
+    <div class="am-u-sm-5" id="loser" style="color: #000000;text-align: center; font-size: 2rem;border:none; border-bottom:solid 3px black;">我是失主</div>
+    <div class="am-u-sm-5" id="founder" style="color: #000000;text-align: center; font-size: 2rem;border:none; ">我是拾主</div>
   </div>
-  <div class="am-g" style="padding: 4rem 0rem 0rem 0rem;">
+  <div class="am-g" id="loserDetail" style="padding: 3rem 0rem 0rem 0rem;">
   <form action="/lost/itemList" method="get" class="am-form">
     <div class="am-g" style="padding: 0 0 2rem 0;">
       <div class="am-u-sm-6" style="text-align: center; padding:0.5rem 0 0 2rem;">丢失物品类别</div>
@@ -56,7 +55,6 @@
       <div class="am-u-sm-1"></div>
     </div>
     <div class="am-g">
-      <form action="/lost/itemList" method="get" class="am-form">
       <div class="am-u-sm-6" style="text-align: center; padding:0.5rem 0 0 2rem;">丢失物品地点</div>
       <div class="am-u-sm-5">
         <div class="am-form-group">
@@ -70,9 +68,63 @@
       </div>
       <div class="am-u-sm-1"></div>
     </div>
-    <div class="am-g" style=" padding:2rem 0 0 0;">
-      <button type="submit" class="am-btn  am-btn-success am-center" style="text-align: center;font-size: 2rem;x">查看</button>
+    <div class="am-g" style=" padding:4rem 0 0 1rem;">
+      <div class="am-u-sm-10 am-u-sm-offset-1">
+      <button type="submit" class="am-btn  am-btn-success am-center" style="font-size: 2rem;">查看</button>
+      </div>
     </div>
   </div>
+  </form>
+  <div class="am-g" id="founderDetail" style="padding: 4rem 0rem 0rem 0rem;display: none">
+  <form action="/lost/lostList" method="get" class="am-form">
+    <div class="am-g" style="padding: 0 0 2rem 0;">
+      <div class="am-u-sm-6" style="text-align: center; padding:0.5rem 0 0 2rem;">拾获物品类别</div>
+      <div class="am-u-sm-5">
+        <div class="am-form-group">
+          <select id="selector1" name="selector1">
+            {% for i in category%}
+              <option value="{{i.id}}">{{ i.name }}</option>
+            {% endfor %}
+          </select>
+          <span class="am-form-caret"></span>
+        </div>
+      </div>
+      <div class="am-u-sm-1"></div>
+    </div>
+    <div class="am-g">
+      <div class="am-u-sm-6" style="text-align: center; padding:0.5rem 0 0 2rem;">拾获物品地点</div>
+      <div class="am-u-sm-5">
+        <div class="am-form-group">
+          <select id="selector2" name="selector2">
+            {% for i in location %}
+              <option value="{{i.id}}">{{ i.name }}</option>
+            {% endfor %}
+          </select>
+          <span class="am-form-caret"></span>
+        </div>
+      </div>
+      <div class="am-u-sm-1"></div>
+    </div>
+    <div class="am-g" style=" padding:4rem 0 0 1rem;">
+      <div class="am-u-sm-10 am-u-sm-offset-1">
+      <button type="submit" class="am-btn  am-btn-success am-center" style="font-size: 2rem;">查看</button>
+      </div>
+    </div>
+  </div>
+  </form>
+  <script>
+      $("#loser").click(function(){
+          $("#loser").css("border-bottom","solid 3px black");
+          $("#founder").css("border-bottom","none");
+          $("#loserDetail").css({"display":"block","padding":"3rem 0rem 0rem 0rem"});
+          $("#founderDetail").css("display","none");
+      })
+      $("#founder").click(function(){
+          $("#loser").css("border-bottom","none");
+          $("#founder").css("border-bottom","solid 3px black");
+          $("#founderDetail").css({"display":"block","padding":"3rem 0rem 0rem 0rem"});
+          $("#loserDetail").css("display","none");
+      })
+  </script>
 </body>
 </html>
