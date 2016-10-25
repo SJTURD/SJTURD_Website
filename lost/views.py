@@ -133,10 +133,12 @@ def get_item(request):
     data = {
         'id': data.pk,
         'img': data.picture.name,
-        'key': ['类别', '发现地点', '备注'],
+        'key': ['类别', '发现地点', '备注','联系方式','邮箱'],
         '类别': data.category.name,
         '发现地点': data.location.name,
         '备注': data.remark,
+        '联系方式':data.phone,
+        '邮箱':data.email
     }
 
     return JsonResponse(data)
