@@ -6,12 +6,10 @@ from django.conf import settings
 
 
 def index(request):
-    category = Category.objects.all().order_by("name")
-    location = Location.objects.all().order_by("name")
     context = {
         'MEDIA_URL': settings.MEDIA_URL,
-        'location' : location,
-        'category' : category
+        'selector1_init_url': '/main/api/getCategories',
+        'selector2_init_url': '/main/api/getLocations',
     }
     return render(request, 'index.html', context)
 

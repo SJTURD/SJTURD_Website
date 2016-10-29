@@ -195,7 +195,6 @@ def upload(request):
     #       item.item_id= len(Lost.objects.all())+1
             item.category = Category.objects.get(id=form.cleaned_data['category'])
             item.location = Location.objects.get(id=form.cleaned_data['location'])
-            item.email = form.cleaned_data['email']
             item.phone = form.cleaned_data['phone']
             item.remark = form.cleaned_data['remark']
             item.picture = form.cleaned_data['img']
