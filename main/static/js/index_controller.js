@@ -1,98 +1,24 @@
 var selector1_val = NaN;
 var selector2_val = NaN;
-var page = NaN;
-var end_of_list = false;
-
-var getUrlParameter = function getUrlParameter(sParam) {
-  var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-    sURLVariables = sPageURL.split('&'),
-    sParameterName,
-    i;
-
-  for (i = 0; i < sURLVariables.length; i++) {
-    sParameterName = sURLVariables[i].split('=');
-
-    if (sParameterName[0] === sParam) {
-      return sParameterName[1] === undefined ? true : sParameterName[1];
-    }
-  }
-};
+var selector3_val = NaN;
+var selector4_val = NaN;
 
 $.ajaxSetup({
     async: false
 });
 
-var loadData = function() {
-  $.getJSON(items_url,
-    {
-      page: page,
-      selector1_val: selector1_val,
-      selector2_val: selector2_val
-    },
-    renderData);
-};
-
-var renderData = function(data) {
-  $('#item-list ul').empty();
-  $.each(data.data, function(index, value) {
-    $('#item-list ul').append(
-      $("<li></li>")
-        .attr("id", "item_" + value.id)
-        .attr("onclick", "window.location.href='" + value.url + "'")
-        .attr("class", "item am-thumbnail")
-        .append($("<img/>")
-          .attr("src", MEDIA_URL + value.img)
-          .attr("class", "itemPic am-img-thumbnail"))
-        .append($("<div></div>")
-          .attr("class", "itemDetail am-thumbnail-caption")
-          .append($("<div></div>")
-            .attr("class", "left_field am-u-sm-8")
-            .append(value.left_field))
-          .append($("<div></div>")
-            .attr("class", "right_field am-u-sm-4")
-            .append(value.right_field))
-          .append($("<div></div>")
-            .attr("class", "bottom_field am-u-sm-12")
-            .append(value.bottom_field)))
-    )
-  });
-
-  page = data.page;
-  end_of_list = data.end_of_list;
-
-  if (page == 1) {
-    $("#page-selector .am-pagination-prev").addClass("am-disabled")
-  }
-  else {
-    $("#page-selector .am-pagination-prev").removeClass("am-disabled")
-  }
-
-  if (end_of_list) {
-    $("#page-selector .am-pagination-next").addClass("am-disabled")
-  }
-  else {
-    $("#page-selector .am-pagination-next").removeClass("am-disabled")
-  }
-};
-
 var init = function() {
-  page = 1;
 
   var selector1_init = function(data) {
     selector1_val = data.default;
-    tmp1 = getUrlParameter("selector1");
-    tmp2 = getUrlParameter("selector3");
-    if(tmp1 != 0) tmp = tmp1;
-    if(tmp2 != 0) tmp = tmp2;
 
-    var flag = false;
+
     $.each(data.data, function(key, value) {
       $("#selector1").append(
         $("<option></option>")
           .attr("value", value.pk)
           .text(value.name)
       );
-      if (value.pk == tmp) selector1_val = tmp;
     });
 
     $('#selector1 option[value="' + selector1_val + '"]').attr('selected', 'selected');
@@ -102,17 +28,12 @@ var init = function() {
 
   var selector2_init = function(data) {
     selector2_val = data.default;
-    tmp1 = getUrlParameter("selector2");
-    tmp2 = getUrlParameter("selector4");
-    if(tmp1 != 0) tmp = tmp1;
-    if(tmp2 != 0) tmp = tmp2;
     $.each(data.data, function(key, value) {
       $("#selector2").append(
         $("<option></option>")
           .attr("value", value.pk)
           .text(value.name)
       );
-      if (value.pk == tmp) selector2_val = tmp;
     });
 
     $('#selector2 option[value="' + selector2_val + '"]').attr('selected', 'selected');
@@ -120,7 +41,41 @@ var init = function() {
 
   $.getJSON(selector2_init_url, selector2_init);
 
-  loadData();
+  var selector3_init = function(data) {
+    selector3_val = data.default;
+
+
+    $.each(data.data, function(key, value) {
+      $("#selector3").append(
+        $("<option></option>")
+          .attr("value", value.pk)
+          .text(value.name)
+      );
+    });
+
+    $('#selector3 option[value="' + selector3_val + '"]').attr('selected', 'selected');
+  };
+
+  $.getJSON(selector3_init_url, selector3_init);
+
+
+    var selector4_init = function(data) {
+    selector4_val = data.default;
+
+
+    $.each(data.data, function(key, value) {
+      $("#selector4").append(
+        $("<option></option>")
+          .attr("value", value.pk)
+          .text(value.name)
+      );
+    });
+
+    $('#selector4 option[value="' + selector4_val + '"]').attr('selected', 'selected');
+  };
+
+  $.getJSON(selector4_init_url, selector4_init);
+
 
   var selectorCSS = function() {
     $('select').each(function () {
@@ -187,22 +142,19 @@ var init = function() {
   selectorCSS();
 };
 
-var prevPage = function() {
-  --page;
-  loadData();
-};
-
-var nextPage = function() {
-  ++page;
-  loadData();
-};
 
 var selector1 = function() {
   selector1_val = $("#selector1").val();
-  loadData();
 };
 
 var selector2 = function() {
   selector2_val = $("#selector2").val();
-  loadData();
+};
+
+var selector3 = function() {
+  selector3_val = $("#selector1").val();
+};
+
+var selector4 = function() {
+  selector4_val = $("#selector2").val();
 };

@@ -17,18 +17,16 @@
   </title>
 
   <link rel="stylesheet" href="{% static "css/amazeui.css" %}">
-  <link rel="stylesheet" href="{% static "css/base.css" %}">
-  <link rel="stylesheet" href='{% static  "css/list_base.css" %}'>
+  <link rel="stylesheet" href="{% static "css/index.css" %}">
 
   <script type="text/javascript" src="{% static "js/browser.js" %}"></script>
   <script type="text/javascript" src="{% static "js/jquery-3.1.0.js" %}"></script>
   <script type="text/javascript" src="{% static "js/react.js" %}"></script>
   <script type="text/javascript" src="{% static "js/react-dom.js" %}"></script>
   <script type="text/javascript" src="{% static "js/amazeui.js" %}"></script>
-  <script type="text/javascript" src="{% static "js/base.js" %}"></script>
   <script type="text/javascript" src="{% static "js/index.js" %}"></script>
-  <script type="text/javascript" src="{% static 'js/list_base.js' %}"></script>
-  <link rel="icon" type="image/png" href="{% static "img/index.jpg" %}">
+
+  <link rel="icon" type="image/png" href="{% static "img/favicon.png" %}">
 
 </head>
 <body>
@@ -41,7 +39,7 @@
     <div class="am-u-sm-6" id="founder" style="color: #888888;text-align: center; font-size: 5vw;border:none; ">我是拾主</div>
   </div>
   <div class="am-g" id="loserDetail" style="padding: 3rem 0rem 0rem 0rem;">
-  <form action="/lost/itemList" method="get" class="am-form">
+  <form action="/lost/beforeUpload" method="get" class="am-form">
     <div style="padding: 0 0 2rem 0;">
       <div class="am-u-sm-8 am-u-sm-centered">
         <div class="am-g" style="padding-bottom: 0rem; border:none; border-bottom:solid 1px gray;">
@@ -70,7 +68,7 @@
   </div>
   </form>
   <div class="am-g" id="founderDetail" style="padding: 4rem 0rem 0rem 0rem;display: none">
-  <form action="/lost/lostList" method="get" class="am-form">
+  <form action="/lost/itemList" method="get" class="am-form">
     <div style="padding: 0 0 2rem 0;">
       <div class="am-u-sm-8 am-u-sm-centered">
         <div class="am-g" style="padding-bottom: 0rem; border:none; border-bottom:solid 1px gray;">
@@ -118,7 +116,7 @@
       var selector3_init_url = "{{ selector1_init_url }}";
       var selector4_init_url = "{{ selector2_init_url }}";
 
-      </script>
+  </script>
       <script type="text/javascript" src="{% static "js/index_controller.js" %}"></script>
       <script type="text/javascript">
         init();

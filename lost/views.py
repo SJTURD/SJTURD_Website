@@ -13,7 +13,7 @@ from .models import Lost
 from main.models import Category, Location
 
 
-def item_list(request):
+def before_upload(request):
     context = {
         'MEDIA_URL': settings.MEDIA_URL,
         'selector1_init_url': '/main/api/getCategories',
@@ -21,10 +21,10 @@ def item_list(request):
         'items_url': '/found/api/getItems',
     }
 
-    return render(request, 'lost/itemList.html', context)
+    return render(request, 'lost/beforeUpload.html', context)
 
 
-def lost_list(request):
+def item_list(request):
     context = {
         'MEDIA_URL': settings.MEDIA_URL,
         'selector1_init_url': '/main/api/getCategories',
@@ -32,7 +32,7 @@ def lost_list(request):
         'items_url': '/lost/api/getItems',
     }
 
-    return render(request, 'lost/lostList.html', context)
+    return render(request, 'lost/itemList.html', context)
 
 
 def get_items(request):
