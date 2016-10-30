@@ -1,3 +1,4 @@
+import datetime
 from django.http import JsonResponse
 from django.shortcuts import render
 
@@ -15,39 +16,23 @@ def card_list(request):
 
 
 def get_cards(request):
-    ITEMS_PER_PAGE = 100
+    MAX_DAY = 10
 
     data = {
         'data': [],
-        'page': 1,
-        'end_of_list': True,
     }
 
     if not request.is_ajax():
         return JsonResponse(data)
 
-    params = request.GET
-
-    page = int(params['page'])
-    data = Card.objects.all().filter(paired=False).order_by('-date')
+    data = Card.objects.all().filter(paired=False)\
+        .filter(date__gte=datetime.datetime.today() - datetime.timedelta(days=MAX_DAY)).order_by('-date')
 
     if len(data) == 0:
         data = {
             'data': [],
-            'page': 1,
-            'end_of_list': True,
         }
         return JsonResponse(data)
-
-    if page <= 0:
-        page = 1
-
-    if len(data) <= page * ITEMS_PER_PAGE - ITEMS_PER_PAGE:
-        page = (len(data) - 1) / ITEMS_PER_PAGE + 1
-
-    end_of_list = False
-    if page * ITEMS_PER_PAGE - ITEMS_PER_PAGE < len(data) <= page * ITEMS_PER_PAGE:
-        end_of_list = True
 
     data = [{
                 'id': str(i.pk),
@@ -58,9 +43,7 @@ def get_cards(request):
             for i in data]
 
     data = {
-        'data': data[page * ITEMS_PER_PAGE - ITEMS_PER_PAGE:page * ITEMS_PER_PAGE],
-        'page': page,
-        'end_of_list': end_of_list,
+        'data': data,
     }
 
     return JsonResponse(data)

@@ -1,16 +1,34 @@
+var content = NaN;
 var page = NaN;
-var end_of_list = false;
+var item_per_page = 100;
+
+
+var keyword = $('input[id=searchBox]').val();
 
 $.ajaxSetup({
     async: false
 });
 
 var loadData = function() {
-  $.getJSON(items_url,
-    {
-      page: page
-    },
-    renderData);
+  var cur_content = [];
+  if (keyword) {
+    $.each(content, function(index, value) {
+      if (value.student_id.search(keyword) != -1 || value.name.search(keyword) != -1) cur_content.push(value);
+    });
+  }
+  else {
+    cur_content = content;
+  }
+
+  if (cur_content.length == 0) page = 1;
+
+  var req = {
+    data: cur_content.slice(item_per_page * (page - 1), item_per_page * page),
+    begin_of_list: (page == 1),
+    end_of_list: (page * item_per_page >= cur_content.length),
+  }
+
+  renderData(req);
 };
 
 var renderData = function(data) {
@@ -28,10 +46,10 @@ var renderData = function(data) {
     )
   });
 
-  page = data.page;
-  end_of_list = data.end_of_list;
+  var begin_of_list = data.begin_of_list;
+  var end_of_list = data.end_of_list;
 
-  if (page == 1) {
+  if (begin_of_list) {
     $("#page-selector .am-pagination-prev").addClass("am-disabled")
   }
   else {
@@ -46,8 +64,13 @@ var renderData = function(data) {
   }
 };
 
-var init = function() {
+var init_content = function(data) {
+  content = data.data;
   page = 1;
+}
+
+var init = function() {
+  $.getJSON(items_url, init_content);
   loadData();
 };
 
@@ -61,14 +84,8 @@ var nextPage = function() {
   loadData();
 };
 
-var highlightRows = function() {
-  var keyword = $('input[id=searchBox]').val();
-
-  $.each($("tbody tr"), function (index, value) {
-    $(value).removeClass("am-active");
-    if (keyword.length > 0 && ($(value).children().first().text().search(keyword) != -1 ||
-      $(value).children().first().next().text().search(keyword) != -1))
-
-      $(value).addClass("am-active");
-  })
+var changeKeyword = function() {
+  keyword = $('input[id=searchBox]').val();
+  page = 1;
+  loadData();
 };

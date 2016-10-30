@@ -5,8 +5,9 @@
 }
 
 .right_field {
-  color: #eeeeee;
-  padding-right: 0.5rem;
+  color: #aaaaaa;
+  padding-right: 0.2rem;
+  padding-left: 0.2rem;
 }
 
 .am-form-select {
