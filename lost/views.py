@@ -85,9 +85,9 @@ def get_items(request):
                 'id': str(i.pk),
                 'img': os.path.join(os.path.split(i.picture.name)[0],
                                     'thumbnail_' + os.path.split(i.picture.name)[1].split('.')[0] + '.png'),
-                'url': 'item?id=' + str(i.pk),
+                'url': '/lost/item?id=' + str(i.pk),
                 'left_field': i.category.name,
-                'right_field': str(i.date.date())[5:],
+                'right_field': str(i.date.date())[5:].replace('-', '/'),
                 'bottom_field': i.location.name,
             }
             for i in data]
@@ -133,12 +133,11 @@ def get_item(request):
     data = {
         'id': data.pk,
         'img': data.picture.name,
-        'key': ['类别', '发现地点', '备注','联系方式','邮箱'],
+        'key': ['类别', '丢失地点', '备注', '联系方式'],
         '类别': data.category.name,
-        '发现地点': data.location.name,
+        '丢失地点': data.location.name,
         '备注': data.remark,
-        '联系方式':data.phone,
-        '邮箱':data.email
+        '联系方式': data.phone,
     }
 
     return JsonResponse(data)
