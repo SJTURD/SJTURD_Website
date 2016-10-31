@@ -12,7 +12,6 @@ var init = function() {
   var selector1_init = function(data) {
     selector1_val = data.default;
 
-
     $.each(data.data, function(key, value) {
       $("#selector1").append(
         $("<option></option>")

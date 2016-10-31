@@ -1,9 +1,7 @@
-import json
 import os
 
-from django.core import serializers
-from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render
+from django.http import JsonResponse
+from django.shortcuts import render, redirect
 from django.shortcuts import render_to_response
 from django.conf import settings
 from django import forms
@@ -11,9 +9,14 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from .models import Lost
 from main.models import Category, Location
+from card.views import card_list
 
 
 def before_upload(request):
+    params = request.GET
+    if int(params['selector1']) == -1:
+        return redirect(card_list)
+
     context = {
         'MEDIA_URL': settings.MEDIA_URL,
         'selector1_init_url': '/main/api/getCategories',
