@@ -178,11 +178,11 @@ class UploadForm(forms.Form):
         (3,"第三地点")
     )
     location = forms.IntegerField(widget=forms.Select(choices=LOCATION_LIST))
-    email=forms.CharField()
     phone=forms.CharField()
     remark = forms.CharField(required=False)
     img = forms.FileField()
-    appr1 = forms.IntegerField()
+    appr = forms.BooleanField()
+    way = forms.CharField()
 
 
 def upload(request):
@@ -197,14 +197,15 @@ def upload(request):
             item.phone = form.cleaned_data['phone']
             item.remark = form.cleaned_data['remark']
             item.picture = form.cleaned_data['img']
-            if form.cleaned_data['appr1'] == 0:
+            if (form.cleaned_data['appr'] == 0):
                 item.thank = "0"
             else:
-                item.thank = "1"
+                item.thank = form.cleaned_data['way']
             item.save()
             message = "succeed"
 
         else:
             message = "failed"
+
 
     return render_to_response('lost/uploadResult.html',{'message':message})
