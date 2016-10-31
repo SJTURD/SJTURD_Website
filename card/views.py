@@ -39,7 +39,7 @@ def get_cards(request):
 
     data = [{
                 'id': str(i.pk),
-                'student_id': i.student_id[:-3] + '***',
+                'student_id': i.student_id,
                 'name': i.name,
                 'lfoffice': i.lfoffice.name,
             }
