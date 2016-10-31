@@ -187,6 +187,7 @@ class UploadForm(forms.Form):
 
 def upload(request):
     global message
+    global model_id
     if request.method == 'POST':
         form = UploadForm( request.POST, request.FILES )  # 有文件上传要传如两个字段
         if form.is_valid():
@@ -202,10 +203,11 @@ def upload(request):
             else:
                 item.thank = form.cleaned_data['way']
             item.save()
-            message = "succeed"
+            message = "上传成功~"
+            model_id = item.id
 
         else:
-            message = "failed"
+            message = "上传失败"
+            model_id = 0
 
-
-    return render_to_response('lost/uploadResult.html',{'message':message})
+    return render_to_response('lost/uploadResult.html',{'message': message, 'id': model_id})
