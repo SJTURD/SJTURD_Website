@@ -1,0 +1,100 @@
+.itemPic {
+  max-width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.right_field {
+  color: #aaaaaa;
+  padding-right: 0.2rem;
+  padding-left: 0.2rem;
+}
+
+.am-form-select {
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+  padding-left: 2rem;
+  padding-right: 0;
+}
+
+#item-list {
+  margin-left: 0.2rem;
+  margin-right: 0.2rem;
+}
+
+.select-hidden {
+  display: none;
+  visibility: hidden;
+  padding-right: 10px;
+}
+
+.select {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  width: 95%;
+  height: 4rem;
+}
+
+.select-styled {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #ffffff;
+  padding: 8px 15px;
+  -moz-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  -webkit-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+}
+.select-styled:after {
+  content: "";
+  width: 0;
+  height: 0;
+  border: 7px solid transparent;
+  border-color: #ccc transparent transparent transparent;
+  position: absolute;
+  top: 16px;
+  right: 10px;
+}
+.select-styled:hover {
+  background-color: #ddd;
+}
+.select-styled:active, .select-styled.active {
+  background-color: #ddd;
+}
+.select-styled:active:after, .select-styled.active:after {
+  top: 9px;
+  border-color: transparent transparent #fff transparent;
+}
+
+.select-options {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  z-index: 999;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background-color: #ffffff;
+}
+.select-options li {
+  margin: 0;
+  padding: 12px 0;
+  text-indent: 15px;
+  border-top: 1px solid #dddddd;
+  -moz-transition: all 0.15s ease-in;
+  -o-transition: all 0.15s ease-in;
+  -webkit-transition: all 0.15s ease-in;
+  transition: all 0.15s ease-in;
+}
+.select-options li:hover {
+  background: #ddd;
+}
+.select-options li[rel="hide"] {
+  display: none;
+}

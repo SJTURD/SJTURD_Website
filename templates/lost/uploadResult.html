@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+  提交成功
+{% endblock %}
+
+{% block topbar-title %}
+  提交成功
+{% endblock %}
+
+{% block static %}
+{% endblock %}
+
+{% block content %}
+    <span class="am-u-sm-12 am-u-sm-centered am-icon-lg am-icon-smile-o" style="padding: 20rem 0rem 8rem 0rem;text-align: center">{{ message }}</span>
+    <div class ="text" style="padding: 0rem 0rem 8rem 2rem; font-size: 1.6rem;text-align: center">
+      丢丢祝愿失主能早日与自己的宝贝重逢
+    </div>
+    {% if id > 0 %}
+      <div class ="text" style="padding: 0rem 0rem 8rem 2rem; font-size: 1.6rem;text-align: center">
+        <a class="am-text-lg" style="color: #888888; text-decoration: underline; font-weight: normal;" href="/lost/item?id={{ id }}">
+          点击此处查看招领启事
+        </a>
+      </div>
+    {% endif %}
+
+{% endblock %}

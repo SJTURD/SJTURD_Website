@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block static %}
+  <link rel="stylesheet" href='{% static  "css/list_base_vol.css" %}'>
+
+  <script type="text/javascript" src="{% static 'js/list_base.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+  {% block beforeContent %}
+  {% endblock %}
+
+  <ul class="top-bar">
+    <li id="category">
+      <span>物品类别<div class="am-icon-sort-down"></div></span>
+      <span class="vertical-bar"></span>
+    </li><li id="location">
+      <span>招领地点<div class="am-icon-sort-down"></div></span>
+      <span class="vertical-bar"></span>
+    </li><li id="upload" >
+      <span><a href="/volunteer/upload/">上传</a></span>
+    </li><li id="claim">
+      <span class="am-icon-edit"></span>
+    </li>
+  </ul>
+
+  <div class="am-btn claim-btn">
+    认领
+  </div>
+
+  <div class="am-u-sm-12 am-form-group am-form-select select-div" id="selectorA">
+    <select id="selector1" onchange="selector1()">
+      <span class="am-form-caret"></span>
+    </select>
+  </div>
+
+  <div class="am-u-sm-12 am-form-group am-form-select select-div" id="selectorB">
+    <select id="selector2" onchange="selector2()">
+      <span class="am-form-caret"></span>
+    </select>
+  </div>
+
+  <div id="item-list">
+    <ul class="am-avg-sm-2 am-avg-md-3 am-avg-lg-4"></ul>
+  </div>
+
+  <div id="page-selector">
+    <ul class="am-pagination">
+      <li class="am-pagination-prev"><a onclick="prevPage()">&laquo; 上一页</a></li>
+      <li class="am-pagination-next"><a onclick="nextPage()">下一页 &raquo;</a></li>
+    </ul>
+  </div>
+
+  {% block extraContent %}
+  {% endblock %}
+{% endblock %}
+
+{% block controller %}
+  <script type="text/javascript">
+    var MEDIA_URL = "{{ MEDIA_URL }}";
+    var selector1_init_url = "{{ selector1_init_url }}";
+    var selector2_init_url = "{{ selector2_init_url }}";
+    var items_url = "{{ items_url }}";
+
+    var loc=false;
+    var cat=false;
+    var claiming=false;
+    var claimSet=new Set();
+  </script>
+
+  <script type="text/javascript" src="{% static "js/list_base_vol_controller.js" %}"></script>
+
+  <script type="text/javascript">
+    init();
+
+    $(document).ready(function(){
+        $("#category").click(function(){
+            if (!cat){
+                setTimeout("$('.select-options:eq(0)').show();",10);
+            }
+            else {
+                $("body").click();
+            }
+            cat=!cat;
+        });
+        $("#location").click(function(){
+            if (!loc){
+                setTimeout("$('.select-options:eq(1)').show();",10)
+            }
+            else {
+                $("body").click();
+            }
+            loc=!loc;
+        });
+        $("#claim").click(function(){
+          if (!claiming) {
+            $(".claim-btn").show();
+            $(".claim-checkbox").show();
+            $("#claim").attr("class","");
+            $("#claim").html("取消");
+
+            for (var i=0; i<$(".item").length; i++){
+                url=$(".item:eq("+i+")").attr("onclick");
+                $(".item:eq("+i+")").attr("value",url);
+            }
+            $(".item").attr("onclick", "");
+
+            $(".item").click(function(i,k){
+                itemId=this.id;
+                ItemId=itemId.slice(5,itemId.length);
+                claimId="claim_"+ItemId;
+                claimBox=$("#"+claimId);
+                if (claimSet.has(ItemId)){
+                    claimSet.delete(ItemId);
+                    $("#"+claimId).attr("class","claim-checkbox am-icon-circle-o");
+                    $("#"+claimId).attr("value","0")
+                }
+                else{
+                    claimSet.add(ItemId);
+                    claimBox.attr("class","claim-checkbox am-icon-dot-circle-o");
+                    $("#"+claimId).attr("value","1")
+                }
+            })
+          }
+          else {
+            $(".claim-btn").hide();
+            $(".claim-checkbox").hide();
+            $("#claim").attr("class","am-icon-edit");
+            $("#claim").html("");
+
+            for (var i=0; i<$(".item").length; i++){
+                url=$(".item:eq("+i+")").attr("value");
+                $(".item:eq("+i+")").attr("onclick",url);
+            }
+
+          }
+          claiming=!claiming;
+        });
+
+        $(".claim-btn").click(
+                function(){
+
+            $(".claim-btn").html("提交中……");
+                }
+        )
+
+        $(".claim-btn").click(function(){
+            claimList={};
+            len=0;
+            for (var i=0; i<$(".item").length; i++) {
+                if ($(".claim-checkbox:eq("+i+")").attr("value")=="1"){
+                    itemId=$(".claim-checkbox:eq("+i+")")[0].id;
+                    ItemId=itemId.slice(6,itemId.length);
+                    claimList[len++]=ItemId;
+                }
+            }
+            if (len!=0) {
+                setTimeout('$.post("/volunteer/api/retrieve/", claimList, function () {$(".claim-btn").html("认领成功！")})',10);
+                window.document.location.reload();
+            }
+        })
+
+    })
+  </script>
+
+
+{% endblock %}

@@ -14,15 +14,20 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 # from django.contrib import admin
 import main.views
 
 urlpatterns = [
-    url(r'^$', main.views.index),
+    url(r'^$', main.views.index, name='index'),
+    url(r'^main/', include('main.urls')),
     url(r'^user/', include('user.urls')),
     url(r'^lost/', include('lost.urls')),
     url(r'^found/', include('found.urls')),
     url(r'^volunteer/', include('volunteer.urls')),
+    url(r'^card/', include('card.urls')),
+    url(r'^lfoffice/',main.views.lfoffice, name="lfoffice"),
     # url(r'^admin/', admin.site.urls),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,25 @@
+[
+  {
+    "model": "main.LFOffice",
+    "pk": 1,
+    "fields": {
+      "name": "第一失物招领处"
+    }
+  },
+  {
+    "model": "main.LFOffice",
+    "pk": 2,
+    "fields": {
+      "name": "第二失物招领处",
+      "detail": "what"
+    }
+  },
+  {
+    "model": "main.LFOffice",
+    "pk": 3,
+    "fields": {
+      "name": "第三失物招领处",
+      "contact": "how"
+    }
+  }
+]

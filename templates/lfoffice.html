@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+  失物招领处列表
+{% endblock %}
+
+{% block topbar-title %}
+  失物招领处列表
+{% endblock %}
+
+{% block static %}
+  <link rel="stylesheet" href='{% static  "css/cardList.css" %}'>
+
+  <script type="text/javascript" src="{% static 'js/cardList.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+  {% block beforeContent %}
+  {% endblock %}
+
+  <div id="search-box">
+    <form class="am-form">
+      <input type="search" style="display:none" id="searchBox" placeholder="请输入您的学号或姓名" oninput="changeKeyword()">
+    </form>
+  </div>
+
+  <div id="card-table">
+    <table class="am-table">
+      <thead>
+        <tr>
+          <th>名称</th>
+          <th>位置</th>
+          <th>联系方式</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div id="page-selector">
+    <ul class="am-pagination">
+      <li class="am-pagination-prev"><a onclick="prevPage()">&laquo; 上一页</a></li>
+      <li class="am-pagination-next"><a onclick="nextPage()">下一页 &raquo;</a></li>
+    </ul>
+  </div>
+
+  {% block extraContent %}
+  {% endblock %}
+{% endblock %}
+
+{% block controller %}
+  <script type="text/javascript">
+    var MEDIA_URL = "{{ MEDIA_URL }}";
+    var items_url = "{{ items_url }}";
+  </script>
+
+  <script type="text/javascript" src="{% static "js/LFOffice_controller.js" %}"></script>
+
+  <script type="text/javascript">
+    init();
+  </script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $("a:eq(2)").hide();
+      $("a:eq(3)").hide();
+    });
+  </script>
+
+{% endblock %}

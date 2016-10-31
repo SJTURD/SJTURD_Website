@@ -1,0 +1,23 @@
+[
+  {
+    "model": "main.Location",
+    "pk": 1,
+    "fields": {
+      "name": "第一地点"
+    }
+  },
+  {
+    "model": "main.Location",
+    "pk": 2,
+    "fields": {
+      "name": "第二地点"
+    }
+  },
+  {
+    "model": "main.Location",
+    "pk": 3,
+    "fields": {
+      "name": "第三地点"
+    }
+  }
+]
