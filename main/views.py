@@ -15,7 +15,7 @@ def index(request):
 
 
 def get_categories(request):
-    data = Category.objects.all()
+    data = Category.objects.all().order_by('-pk')
     data = [{'pk': cat.pk, 'name': cat.name} for cat in data]
     data = [{'pk': 0, 'name': '所有类别'}] + data
 
@@ -28,7 +28,7 @@ def get_categories(request):
 
 
 def get_locations(request):
-    data = Location.objects.all()
+    data = Location.objects.all().order_by('-pk')
     data = [{'pk': loc.pk, 'name': loc.name} for loc in data]
     data = [{'pk': 0, 'name': '全部地点'}] + data
 
