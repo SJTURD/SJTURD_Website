@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render
 
-from main.models import Category, Location
+from main.models import Category, Location, LFOffice
 from django.conf import settings
 
 
@@ -35,6 +35,43 @@ def get_locations(request):
     data = {
         'data': data,
         'default': 0,
+    }
+
+    return JsonResponse(data)
+
+def lfoffice(request):
+    context = {
+        'MEDIA_URL': settings.MEDIA_URL,
+        'items_url': 'lfoffice/api/getLFOffices',
+    }
+    return render(request, 'lfoffice.html',context)
+
+def get_lfoffices(request):
+    data = {
+        'data': [],
+    }
+
+    if not request.is_ajax():
+        return JsonResponse(data)
+
+    data = LFOffice.objects.all()
+
+    if len(data) == 0:
+        data = {
+            'data': [],
+        }
+        return JsonResponse(data)
+
+    data = [{
+                'id': str(i.pk),
+                'name': i.name,
+                'location': i.detail,
+                'contact': i.contact,
+            }
+            for i in data]
+
+    data = {
+        'data': data,
     }
 
     return JsonResponse(data)
