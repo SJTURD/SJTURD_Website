@@ -65,17 +65,17 @@ def upload_new_card(request):
 
         assert password == 'sillyPassword'
 
-        f = open('tmp.csv', 'w')
+        f = open('tmp.csv', 'w', encoding='utf-8')
         f.write(content)
         f.close()
-        f = open('tmp.csv', 'r')
+        f = open('tmp.csv', 'r', encoding='utf-8')
         csv_reader = csv.reader(f)
         content = list(csv_reader)
         f.close()
 
         for line in content:
             if len(line) == 3:
-                new_object = Card(student_id=line[0], name=line[1], lfoffice_id=int(line[2]))
+                new_object = Card(student_id=line[0], name=line[1], lfoffice=line[2])
                 new_object.save()
 
         return HttpResponse('Success.')
