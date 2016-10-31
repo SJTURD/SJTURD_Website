@@ -9,6 +9,11 @@
   寻物启事
 {% endblock %}
 
+{% block beforeContent %}
+    <a onclick=window.location.href="/lfoffice/" class="am-btn" style="width:100%; margin:0; padding:5px 0 0 0">捡到失物请交到失物招领处!~</a>
+
+{% endblock %}
+
 {% block controller %}
       <script type="text/javascript">
     var MEDIA_URL = "{{ MEDIA_URL }}";

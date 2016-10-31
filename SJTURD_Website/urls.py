@@ -28,5 +28,6 @@ urlpatterns = [
     url(r'^found/', include('found.urls')),
     url(r'^volunteer/', include('volunteer.urls')),
     url(r'^card/', include('card.urls')),
+    url(r'^lfoffice/',main.views.lfoffice, name="lfoffice"),
     # url(r'^admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

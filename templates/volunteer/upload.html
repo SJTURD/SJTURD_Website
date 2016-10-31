@@ -31,14 +31,15 @@
 
         $(document).ready(function(){
             $("#id_img").hide();
-            $("p:eq(4)").hide();
+            $("#id_img").parent().hide();
             $(".upload-photo").attr("style","text-align:center; width:100%; background: #ffffff;height:5rem; margin-top: 2rem; padding: 1.5rem");
             $(".upload-photo").click(function(){
                 $("#id_img").click();
             })
             $(".topbar-left a").attr("href","/volunteer/");
             $("label:eq(0)").html("分类：");
-            $("label:eq(1)").html("地点：");
+            $("label:eq(1)").html("拾获地点：");
+            $("label:eq(2)").html("现所在地：");
 
 
 

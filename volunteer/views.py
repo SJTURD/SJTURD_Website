@@ -86,6 +86,12 @@ class UserForm(forms.Form):
         (3,"第三地点")
     )
     location = forms.IntegerField(widget=forms.Select(choices=LOCATION_LIST))
+    LFOFFICE_LIST=(
+        (1,"第一地点"),
+        (2,"第二地点"),
+        (3,"第三地点")
+    )
+    lfoffice = forms.IntegerField(widget=forms.Select(choices=LFOFFICE_LIST))
     description = forms.CharField(label="描述")
     # owner=forms.CharField(label="物主")
     contact=forms.CharField(label="联系方式")
@@ -97,7 +103,8 @@ def upload_view(request):
         if uf.is_valid():
             item=Found()
             item.category=Category.objects.get(id=uf.cleaned_data['category'])
-            # item.location=Category.objects.get(id=uf.cleaned_data['location'])
+            item.location=Category.objects.get(id=uf.cleaned_data['location'])
+            item.lfoffice=Category.objects.get(id=uf.cleaned_data['lfoffice'])
             item.detail =uf.cleaned_data['description']
             # item.owner=uf.cleaned_data['owner']
             item.phone=uf.cleaned_data['contact']
