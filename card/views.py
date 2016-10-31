@@ -41,7 +41,7 @@ def get_cards(request):
                 'id': str(i.pk),
                 'student_id': i.student_id,
                 'name': i.name,
-                'lfoffice': i.lfoffice.name,
+                'lfoffice': i.lfoffice,
             }
             for i in data]
 
