@@ -8,7 +8,7 @@
 {% endblock %}
 {% block content %}
   <form method="post" class="am-form" enctype="multipart/form-data" >
-{{uf.as_p}}
+    {{uf.as_p}}
 
       <div class="am-btn upload-photo">上传图片</div>
 <input class="am-btn" style="width:100%; height:5rem; position:fixed; bottom:0" type="submit" value="上传"/>
@@ -31,14 +31,15 @@
 
         $(document).ready(function(){
             $("#id_img").hide();
-            $("p:eq(4)").hide();
+            $("#id_img").parent().hide();
             $(".upload-photo").attr("style","text-align:center; width:100%; background: #ffffff;height:5rem; margin-top: 2rem; padding: 1.5rem");
             $(".upload-photo").click(function(){
                 $("#id_img").click();
             })
             $(".topbar-left a").attr("href","/volunteer/");
             $("label:eq(0)").html("分类：");
-            $("label:eq(1)").html("地点：");
+            $("label:eq(1)").html("拾获地点：");
+            $("label:eq(2)").html("现所在地：");
 
 
 

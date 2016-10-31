@@ -1,9 +1,18 @@
-import math
 import os
 
 from celery import shared_task
 import numpy as np
 import cv2
+
+
+def gcd(a, b):
+    if a < b:
+        return gcd(b, a)
+
+    if b == 0:
+        return a
+
+    return gcd(b, a % b)
 
 
 @shared_task

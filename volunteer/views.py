@@ -14,7 +14,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from django.contrib.auth.models import User
 from found.models import Found
-from main.models import Category, Location
+from main.models import Category, Location, LFOffice
 
 
 def index_init(request):
@@ -74,18 +74,21 @@ def login(request):
 
 # upload part
 class UserForm(forms.Form):
-    CATEGORY_LIST=(
-        (1,"第一分类"),
-        (2,"第二分类"),
-        (3,"第三分类")
-    )
+
+    CATEGORY_LIST = Category.objects.all()
+    CATEGORY_LIST = (( cat.pk,  cat.name) for cat in CATEGORY_LIST)
     category = forms.IntegerField(widget=forms.Select(choices=CATEGORY_LIST))
-    LOCATION_LIST=(
-        (1,"第一地点"),
-        (2,"第二地点"),
-        (3,"第三地点")
-    )
+
+    LOCATION_LIST = Location.objects.all()
+    LOCATION_LIST = (( loc.pk,  loc.name) for loc in LOCATION_LIST)
+
     location = forms.IntegerField(widget=forms.Select(choices=LOCATION_LIST))
+
+    LFOFFICE_LIST = LFOffice.objects.all()
+    LFOFFICE_LIST = ((lfo.pk, lfo.name) for lfo in LFOFFICE_LIST)
+
+    lfoffice = forms.IntegerField(widget=forms.Select(choices=LFOFFICE_LIST))
+
     description = forms.CharField(label="描述")
     # owner=forms.CharField(label="物主")
     contact=forms.CharField(label="联系方式")
@@ -97,7 +100,8 @@ def upload_view(request):
         if uf.is_valid():
             item=Found()
             item.category=Category.objects.get(id=uf.cleaned_data['category'])
-            # item.location=Category.objects.get(id=uf.cleaned_data['location'])
+            item.location=Category.objects.get(id=uf.cleaned_data['location'])
+            item.lfoffice=Category.objects.get(id=uf.cleaned_data['lfoffice'])
             item.detail =uf.cleaned_data['description']
             # item.owner=uf.cleaned_data['owner']
             item.phone=uf.cleaned_data['contact']

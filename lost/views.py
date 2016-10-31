@@ -1,9 +1,7 @@
-import json
 import os
 
-from django.core import serializers
-from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render
+from django.http import JsonResponse
+from django.shortcuts import render, redirect
 from django.shortcuts import render_to_response
 from django.conf import settings
 from django import forms
@@ -11,16 +9,20 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from .models import Lost
 from main.models import Category, Location
+from card.views import card_list
 
 
 def before_upload(request):
+    params = request.GET
+    if int(params['selector1']) == -1:
+        return redirect(card_list)
+
     context = {
         'MEDIA_URL': settings.MEDIA_URL,
         'selector1_init_url': '/main/api/getCategories',
         'selector2_init_url': '/main/api/getLocations',
         'items_url': '/found/api/getItems',
     }
-
     return render(request, 'lost/beforeUpload.html', context)
 
 
@@ -166,27 +168,33 @@ def upload_lost_item(request):
 
 
 class UploadForm(forms.Form):
-    CATEGORY_LIST=(
-        (1,"第一分类"),
-        (2,"第二分类"),
-        (3,"第三分类")
-    )
+    CATEGORY_LIST = Category.objects.all()
+    CATEGORY_LIST = [{'pk': cat.pk, 'name': cat.name} for cat in CATEGORY_LIST]
+    CATEGORY_LIST = {
+        'CATEGORY_LIST': CATEGORY_LIST,
+        'default': 0,
+    }
     category = forms.IntegerField(widget=forms.Select(choices=CATEGORY_LIST))
-    LOCATION_LIST=(
-        (1,"第一地点"),
-        (2,"第二地点"),
-        (3,"第三地点")
-    )
+
+    LOCATION_LIST = Location.objects.all()
+    LOCATION_LIST = [{'pk': loc.pk, 'name': loc.name} for loc in LOCATION_LIST]
+    LOCATION_LIST = {
+        'LOCATION_LIST': LOCATION_LIST,
+        'default': 0,
+    }
     location = forms.IntegerField(widget=forms.Select(choices=LOCATION_LIST))
-    email=forms.CharField()
+
+
     phone=forms.CharField()
     remark = forms.CharField(required=False)
     img = forms.FileField()
-    appr1 = forms.IntegerField()
+    appr = forms.BooleanField()
+    way = forms.CharField()
 
 
 def upload(request):
     global message
+    global model_id
     if request.method == 'POST':
         form = UploadForm( request.POST, request.FILES )  # 有文件上传要传如两个字段
         if form.is_valid():
@@ -197,14 +205,16 @@ def upload(request):
             item.phone = form.cleaned_data['phone']
             item.remark = form.cleaned_data['remark']
             item.picture = form.cleaned_data['img']
-            if form.cleaned_data['appr1'] == 0:
+            if (form.cleaned_data['appr'] == 0):
                 item.thank = "0"
             else:
-                item.thank = "1"
+                item.thank = form.cleaned_data['way']
             item.save()
-            message = "succeed"
+            message = "上传成功~"
+            model_id = item.id
 
         else:
-            message = "failed"
+            message = "上传失败"
+            model_id = 0
 
-    return render_to_response('lost/uploadResult.html',{'message':message})
+    return render_to_response('lost/uploadResult.html',{'message': message, 'id': model_id})
