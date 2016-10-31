@@ -20,7 +20,6 @@ def before_upload(request):
         'selector2_init_url': '/main/api/getLocations',
         'items_url': '/found/api/getItems',
     }
-
     return render(request, 'lost/beforeUpload.html', context)
 
 
@@ -166,18 +165,23 @@ def upload_lost_item(request):
 
 
 class UploadForm(forms.Form):
-    CATEGORY_LIST=(
-        (1,"第一分类"),
-        (2,"第二分类"),
-        (3,"第三分类")
-    )
+    CATEGORY_LIST = Category.objects.all()
+    CATEGORY_LIST = [{'pk': cat.pk, 'name': cat.name} for cat in CATEGORY_LIST]
+    CATEGORY_LIST = {
+        'CATEGORY_LIST': CATEGORY_LIST,
+        'default': 0,
+    }
     category = forms.IntegerField(widget=forms.Select(choices=CATEGORY_LIST))
-    LOCATION_LIST=(
-        (1,"第一地点"),
-        (2,"第二地点"),
-        (3,"第三地点")
-    )
+
+    LOCATION_LIST = Location.objects.all()
+    LOCATION_LIST = [{'pk': loc.pk, 'name': loc.name} for loc in LOCATION_LIST]
+    LOCATION_LIST = {
+        'LOCATION_LIST': LOCATION_LIST,
+        'default': 0,
+    }
     location = forms.IntegerField(widget=forms.Select(choices=LOCATION_LIST))
+
+
     phone=forms.CharField()
     remark = forms.CharField(required=False)
     img = forms.FileField()

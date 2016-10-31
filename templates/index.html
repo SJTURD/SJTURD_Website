@@ -35,7 +35,7 @@
     <div class="am-u-sm-6" id="loser" style="color: #888888;text-align: center; font-size: 5vw; border:none; border-bottom:solid 3px black;">我是失主</div>
     <div class="am-u-sm-6" id="founder" style="color: #888888;text-align: center; font-size: 5vw;border:none; ">我是拾主</div>
   </div>
-  <div class="am-g" id="loserDetail" style="padding: 3rem 0rem 8rem 0rem;">
+  <div class="am-g" id="loserDetail" style="padding: 2rem 0rem 8rem 0rem;">
   <form action="/lost/beforeUpload" method="get" class="am-form">
     <div style="padding: 0 0 2rem 0;">
       <div class="am-u-sm-8 am-u-sm-centered">
@@ -47,7 +47,7 @@
           <span class="am-form-caret"></span>
         </div>
         </div>
-        <div class="am-g" style="padding-bottom: 0rem ;padding-top: 4rem ; border:none; border-bottom:solid 1px gray;">
+        <div class="am-g" style="padding-bottom: 0rem ;padding-top: 1rem ; border:none; border-bottom:solid 1px gray;">
           <div class="am-u-sm-3"><span class="am-icon-location-arrow am-icon-md" style="color:gray;"></span> </div>
           <div class="am-u-sm-9" id="selectorB">
           <select id="selector2" onchange="selector2()" name="selector2">
@@ -57,14 +57,14 @@
         </div>
       </div>
     </div>
-    <div  style=" padding:2rem 0 0 0rem;">
+    <div  style=" padding:1rem 0 0 0rem;">
       <div class="am-u-sm-10 am-u-sm-offset-1">
-      <button type="submit" class="am-btn  am-btn-success am-center" style="font-size: 2rem;">查找</button>
+      <button type="submit" class="am-btn  am-btn-success am-center" style="font-size: 2rem; width:80%;background-color:#000000;border-color:#000000">查找</button>
       </div>
     </div>
   </div>
   </form>
-  <div class="am-g" id="founderDetail" style="padding: 4rem 0rem 8rem 0rem;display: none">
+  <div class="am-g" id="founderDetail" style="padding: 1rem 0rem 8rem 0rem;display: none">
   <form action="/lost/itemList" method="get" class="am-form">
     <div style="padding: 0 0 2rem 0;">
       <div class="am-u-sm-8 am-u-sm-centered">
@@ -76,7 +76,7 @@
           <span class="am-form-caret"></span>
         </div>
         </div>
-        <div class="am-g" style="padding-bottom: 0rem ;padding-top: 4rem ; border:none; border-bottom:solid 1px gray;">
+        <div class="am-g" style="padding-bottom: 0rem ;padding-top: 1rem ; border:none; border-bottom:solid 1px gray;">
           <div class="am-u-sm-3"><span class="am-icon-location-arrow am-icon-md" style="color:gray;"></span> </div>
           <div class="am-u-sm-9" id="selectorB">
           <select id="selector4" onchange="selector4()" name="selector4">
@@ -86,25 +86,25 @@
         </div>
       </div>
     </div>
-    <div  style=" padding:2rem 0 0 0rem;">
+    <div  style=" padding:1rem 0 0 0rem;">
       <div class="am-u-sm-10 am-u-sm-offset-1">
-      <button type="submit" class="am-btn  am-btn-success am-center" style="font-size: 2rem;">查找</button>
+      <button type="submit" class="am-btn  am-btn-success am-center" style="font-size: 2rem;width:80%;background-color:#000000;border-color:#000000">查找</button>
       </div>
     </div>
   </div>
   </form>
-  <a class="am-btn am-btn-success am-btn-block" href="/lost/itemList" style="position:fixed;bottom:0;">查看寻物启事</a>
+  <a class="am-btn am-btn-success am-btn-block" href="/lost/itemList" style="position:fixed;bottom:0; background-color:#000000;border-color:#000000">查看寻物启事</a>
   <script>
       $("#loser").click(function(){
           $("#loser").css("border-bottom","solid 3px black");
           $("#founder").css("border-bottom","none");
-          $("#loserDetail").css({"display":"block","padding":"3rem 0rem 8rem 0rem"});
+          $("#loserDetail").css({"display":"block","padding":"rem 0rem 8rem 0rem"});
           $("#founderDetail").css("display","none");
       })
       $("#founder").click(function(){
           $("#loser").css("border-bottom","none");
           $("#founder").css("border-bottom","solid 3px black");
-          $("#founderDetail").css({"display":"block","padding":"3rem 0rem 8rem 0rem"});
+          $("#founderDetail").css({"display":"block","padding":"2rem 0rem 8rem 0rem"});
           $("#loserDetail").css("display","none");
       })
       var MEDIA_URL = "{{ MEDIA_URL }}";
