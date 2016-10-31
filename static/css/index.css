@@ -1,25 +1,6 @@
-.itemPic {
-  max-width: 95%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.right_field {
-  color: #aaaaaa;
-  padding-right: 0.2rem;
-  padding-left: 0.2rem;
-}
-
-.am-form-select {
-  margin-top: 1.5rem;
-  margin-bottom: 0;
-  padding-left: 2rem;
-  padding-right: 0;
-}
-
-#item-list {
-  margin-left: 0.2rem;
-  margin-right: 0.2rem;
+body {
+  font-family:Microsoft YaHei, Helvetica, sans-serif;
+  background-color: #ffffff;
 }
 
 .select-hidden {

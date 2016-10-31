@@ -69,9 +69,9 @@ def get_items(request):
                 'id': str(i.pk),
                 'img': os.path.join(os.path.split(i.picture.name)[0],
                                     'thumbnail_' + os.path.split(i.picture.name)[1].split('.')[0] + '.png'),
-                'url': 'item?id=' + str(i.pk),
+                'url': '/found/item?id=' + str(i.pk),
                 'left_field': i.category.name,
-                'right_field': str(i.date.date())[5:],
+                'right_field': str(i.date.date())[5:].replace('-', '/'),
                 'bottom_field': i.location.name,
             }
             for i in data]

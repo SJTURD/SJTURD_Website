@@ -1,6 +1,7 @@
 body {
-  font-family:Helvetica;
+  font-family:Microsoft YaHei, Helvetica, sans-serif;
   background-color: #eeeeee;
+  font-size: 4vw;
 }
 
 .topbar-left {

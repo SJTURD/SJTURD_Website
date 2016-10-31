@@ -8,7 +8,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 from SJTURD_Website import settings
-from main.picture_compress import pic_compress
+from main.tasks import pic_compress
 
 
 def get_file_path(instance, filename):
@@ -39,4 +39,4 @@ class Found(models.Model):
 @receiver(post_save, sender=Found)
 def create_thumbnail(sender, instance, **kwargs):
     img_filename = instance.picture.name
-    pic_compress(os.path.join(settings.MEDIA_URL, img_filename))
+    pic_compress.delay(os.path.join(settings.MEDIA_URL, img_filename))

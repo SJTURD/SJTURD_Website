@@ -13,7 +13,7 @@ from .models import Lost
 from main.models import Category, Location
 
 
-def item_list(request):
+def before_upload(request):
     context = {
         'MEDIA_URL': settings.MEDIA_URL,
         'selector1_init_url': '/main/api/getCategories',
@@ -21,10 +21,10 @@ def item_list(request):
         'items_url': '/found/api/getItems',
     }
 
-    return render(request, 'lost/itemList.html', context)
+    return render(request, 'lost/beforeUpload.html', context)
 
 
-def lost_list(request):
+def item_list(request):
     context = {
         'MEDIA_URL': settings.MEDIA_URL,
         'selector1_init_url': '/main/api/getCategories',
@@ -32,7 +32,7 @@ def lost_list(request):
         'items_url': '/lost/api/getItems',
     }
 
-    return render(request, 'lost/lostList.html', context)
+    return render(request, 'lost/itemList.html', context)
 
 
 def get_items(request):
@@ -85,9 +85,9 @@ def get_items(request):
                 'id': str(i.pk),
                 'img': os.path.join(os.path.split(i.picture.name)[0],
                                     'thumbnail_' + os.path.split(i.picture.name)[1].split('.')[0] + '.png'),
-                'url': 'item?id=' + str(i.pk),
+                'url': '/lost/item?id=' + str(i.pk),
                 'left_field': i.category.name,
-                'right_field': str(i.date.date())[5:],
+                'right_field': str(i.date.date())[5:].replace('-', '/'),
                 'bottom_field': i.location.name,
             }
             for i in data]
@@ -133,10 +133,11 @@ def get_item(request):
     data = {
         'id': data.pk,
         'img': data.picture.name,
-        'key': ['类别', '发现地点', '详细说明'],
+        'key': ['类别', '丢失地点', '备注', '联系方式'],
         '类别': data.category.name,
-        '发现地点': data.location.name,
-        '详细说明': data.detail,
+        '丢失地点': data.location.name,
+        '备注': data.remark,
+        '联系方式': data.phone,
     }
 
     return JsonResponse(data)
@@ -193,7 +194,6 @@ def upload(request):
     #       item.item_id= len(Lost.objects.all())+1
             item.category = Category.objects.get(id=form.cleaned_data['category'])
             item.location = Location.objects.get(id=form.cleaned_data['location'])
-            item.email = form.cleaned_data['email']
             item.phone = form.cleaned_data['phone']
             item.remark = form.cleaned_data['remark']
             item.picture = form.cleaned_data['img']

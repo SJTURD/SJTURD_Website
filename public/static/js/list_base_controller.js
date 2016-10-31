@@ -80,7 +80,10 @@ var init = function() {
 
   var selector1_init = function(data) {
     selector1_val = data.default;
-    tmp = getUrlParameter("selector1");
+    tmp1 = getUrlParameter("selector1");
+    tmp2 = getUrlParameter("selector3");
+    if(tmp1 != 0) tmp = tmp1;
+    if(tmp2 != 0) tmp = tmp2;
 
     var flag = false;
     $.each(data.data, function(key, value) {
@@ -99,7 +102,10 @@ var init = function() {
 
   var selector2_init = function(data) {
     selector2_val = data.default;
-    tmp = getUrlParameter("selector2");
+    tmp1 = getUrlParameter("selector2");
+    tmp2 = getUrlParameter("selector4");
+    if(tmp1 != 0) tmp = tmp1;
+    if(tmp2 != 0) tmp = tmp2;
     $.each(data.data, function(key, value) {
       $("#selector2").append(
         $("<option></option>")

@@ -38,7 +38,7 @@ var renderData = function(data) {
     $('#item-list ul').append(
       $("<li></li>")
         .attr("id", "item_" + value.id)
-        .attr("onclick", "window.location.href='" + value.url + "'")
+        .attr("onclick", "window.location.href='/volunteer/item?id=" + value.id + "'")
         .attr("class", "item am-thumbnail")
         .append($("<img/>")
           .attr("src", MEDIA_URL + value.img)
@@ -53,7 +53,14 @@ var renderData = function(data) {
             .append(value.right_field))
           .append($("<div></div>")
             .attr("class", "bottom_field am-u-sm-12")
-            .append(value.bottom_field)))
+            .append(value.bottom_field)
+          )
+        )
+        .append($("<span></span>")
+            .attr("id","claim_"+value.id)
+            .attr("class","am-icon-circle-o claim-checkbox")
+            .attr("value","0")
+        )
     )
   });
 
@@ -80,10 +87,7 @@ var init = function() {
 
   var selector1_init = function(data) {
     selector1_val = data.default;
-    tmp1 = getUrlParameter("selector1");
-    tmp2 = getUrlParameter("selector3");
-    if(tmp1 != 0) tmp = tmp1;
-    if(tmp2 != 0) tmp = tmp2;
+    tmp = getUrlParameter("selector1");
 
     var flag = false;
     $.each(data.data, function(key, value) {
@@ -102,10 +106,7 @@ var init = function() {
 
   var selector2_init = function(data) {
     selector2_val = data.default;
-    tmp1 = getUrlParameter("selector2");
-    tmp2 = getUrlParameter("selector4");
-    if(tmp1 != 0) tmp = tmp1;
-    if(tmp2 != 0) tmp = tmp2;
+    tmp = getUrlParameter("selector2");
     $.each(data.data, function(key, value) {
       $("#selector2").append(
         $("<option></option>")

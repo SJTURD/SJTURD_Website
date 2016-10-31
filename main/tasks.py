@@ -1,10 +1,12 @@
 import math
 import os
 
+from celery import shared_task
 import numpy as np
 import cv2
 
 
+@shared_task
 def pic_compress(filename):
     while filename[0] == '\\' or filename[0] == '/':
         filename = filename[1:]

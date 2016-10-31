@@ -8,6 +8,10 @@ Django 1.10
 
 React 15.3.1
 
+OpenCV 3.1
+
+Celery 3.1.17
+
 ## Cautions
 * Some Constants
   ```Python
@@ -46,4 +50,10 @@ React 15.3.1
 * If you need any test data:
   ```Bash
   python manage.py loaddata [FIXTURE_NAME]
+  ```
+  
+* Run server:
+  ```Bash
+  python manage.py runserver
+  celery -A SJTURD_Website worker -l info
   ```
