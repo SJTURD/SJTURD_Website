@@ -82,9 +82,9 @@ var init = function() {
     selector1_val = data.default;
     tmp1 = getUrlParameter("selector1");
     tmp2 = getUrlParameter("selector3");
-    if(tmp1 != 0) tmp = tmp1;
-    if(tmp2 != 0) tmp = tmp2;
-
+    if(tmp1 === undefined) tmp = tmp2;
+    else tmp = tmp1;
+    if (tmp == 2) window.location.href = "/card/cardList"
     var flag = false;
     $.each(data.data, function(key, value) {
       $("#selector1").append(
@@ -104,8 +104,8 @@ var init = function() {
     selector2_val = data.default;
     tmp1 = getUrlParameter("selector2");
     tmp2 = getUrlParameter("selector4");
-    if(tmp1 != 0) tmp = tmp1;
-    if(tmp2 != 0) tmp = tmp2;
+    if(tmp1 === undefined) tmp = tmp2;
+    else tmp = tmp1;
     $.each(data.data, function(key, value) {
       $("#selector2").append(
         $("<option></option>")

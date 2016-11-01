@@ -12,6 +12,11 @@ var init = function() {
   var selector1_init = function(data) {
     selector1_val = data.default;
 
+    $("#selector1").append(
+      $("<option></option>")
+        .attr("value", -1)
+        .text('校园卡')
+    );
 
     $.each(data.data, function(key, value) {
       $("#selector1").append(

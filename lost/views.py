@@ -1,9 +1,7 @@
-import json
 import os
 
-from django.core import serializers
-from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render
+from django.http import JsonResponse
+from django.shortcuts import render, redirect
 from django.shortcuts import render_to_response
 from django.conf import settings
 from django import forms
@@ -11,9 +9,14 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from .models import Lost
 from main.models import Category, Location
+from card.views import card_list
 
 
 def before_upload(request):
+    params = request.GET
+    if int(params['selector1']) == -1:
+        return redirect(card_list)
+
     context = {
         'MEDIA_URL': settings.MEDIA_URL,
         'selector1_init_url': '/main/api/getCategories',
@@ -132,11 +135,12 @@ def get_item(request):
     data = {
         'id': data.pk,
         'img': data.picture.name,
-        'key': ['类别', '丢失地点', '备注', '联系方式'],
+        'key': ['类别', '丢失地点', '备注', '联系方式','答谢方式'],
         '类别': data.category.name,
         '丢失地点': data.location.name,
         '备注': data.remark,
         '联系方式': data.phone,
+        '答谢方式': data.thankDetail,
     }
 
     return JsonResponse(data)
@@ -205,7 +209,8 @@ def upload(request):
             if (form.cleaned_data['appr'] == 0):
                 item.thank = "0"
             else:
-                item.thank = form.cleaned_data['way']
+                item.thank = "1"
+                item.thankDetail= form.cleaned_data['way']
             item.save()
             message = "上传成功~"
             model_id = item.id

@@ -39,12 +39,14 @@ def get_locations(request):
 
     return JsonResponse(data)
 
+
 def lfoffice(request):
     context = {
         'MEDIA_URL': settings.MEDIA_URL,
-        'items_url': 'lfoffice/api/getLFOffices',
+        'items_url': '/api/getLFOffices',
     }
-    return render(request, 'lfoffice.html',context)
+    return render(request, 'main/lfoffice.html', context)
+
 
 def get_lfoffices(request):
     data = {
