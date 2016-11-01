@@ -135,11 +135,12 @@ def get_item(request):
     data = {
         'id': data.pk,
         'img': data.picture.name,
-        'key': ['类别', '丢失地点', '备注', '联系方式'],
+        'key': ['类别', '丢失地点', '备注', '联系方式','答谢方式'],
         '类别': data.category.name,
         '丢失地点': data.location.name,
         '备注': data.remark,
         '联系方式': data.phone,
+        '答谢方式': data.thankDetail,
     }
 
     return JsonResponse(data)
@@ -208,7 +209,8 @@ def upload(request):
             if (form.cleaned_data['appr'] == 0):
                 item.thank = "0"
             else:
-                item.thank = form.cleaned_data['way']
+                item.thank = "1"
+                item.thankDetail= form.cleaned_data['way']
             item.save()
             message = "上传成功~"
             model_id = item.id

@@ -26,7 +26,7 @@ var loadData = function() {
     data: cur_content.slice(item_per_page * (page - 1), item_per_page * page),
     begin_of_list: (page == 1),
     end_of_list: (page * item_per_page >= cur_content.length),
-  }
+  };
 
   renderData(req);
 };
@@ -67,7 +67,7 @@ var renderData = function(data) {
 var init_content = function(data) {
   content = data.data;
   page = 1;
-}
+};
 
 var init = function() {
   $.getJSON(items_url, init_content);
