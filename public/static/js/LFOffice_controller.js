@@ -35,8 +35,8 @@ var renderData = function(data) {
           .append(value.fields.name))
         .append($("<td></td>")
           .append(value.fields.detail))
-        .append($("<td></td>")
-          .append(value.fields.contact))
+        // .append($("<td></td>")
+          // .append(value.fields.contact))
     )
   });
 
