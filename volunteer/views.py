@@ -89,9 +89,9 @@ class UserForm(forms.Form):
 
     lfoffice = forms.IntegerField(widget=forms.Select(choices=LFOFFICE_LIST))
 
-    description = forms.CharField(label="描述")
+    description = forms.CharField(label="描述", required=False)
     # owner=forms.CharField(label="物主")
-    contact=forms.CharField(label="联系方式")
+    contact=forms.CharField(label="联系方式", required=False)
     img = forms.FileField(label="图片")
 
 def upload_view(request):
@@ -100,8 +100,8 @@ def upload_view(request):
         if uf.is_valid():
             item=Found()
             item.category=Category.objects.get(id=uf.cleaned_data['category'])
-            item.location=Category.objects.get(id=uf.cleaned_data['location'])
-            item.lfoffice=Category.objects.get(id=uf.cleaned_data['lfoffice'])
+            item.location=Location.objects.get(id=uf.cleaned_data['location'])
+            item.lfoffice=LFOffice.objects.get(id=uf.cleaned_data['lfoffice'])
             item.detail =uf.cleaned_data['description']
             # item.owner=uf.cleaned_data['owner']
             item.phone=uf.cleaned_data['contact']
