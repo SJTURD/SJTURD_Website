@@ -109,22 +109,46 @@
               不高兴
             </label>
             </div>
-            <label class="am-radio-inline">
-              <input type="radio" name="way" value="1" data-am-ucheck  checked>
+            <div class="am-u-sm-10 am-u-sm-centered">
+            <div class="am-u-sm-5">
+            <label class="am-radio-inline"style="margin-right:0rem">
+              <input type="radio" name="way" id="appr1" value="请吃饭" data-am-ucheck  checked>
               请吃饭
             </label>
-            <label class="am-radio-inline">
-              <input type="radio" name="way" value="2" data-am-ucheck>
+            </div>
+            <div class="am-u-sm-7">
+            <label class="am-radio-inline" style="margin-right:0rem">
+              <input type="radio" name="way" id="appr2" value="发红包" data-am-ucheck>
               发红包
             </label>
-            <label class="am-radio-inline">
-              <input type="radio" name="way" value="3" data-am-ucheck>
+            </div>
+            </div>
+            <div class="am-u-sm-10 am-u-sm-centered">
+            <div class="am-u-sm-5">
+            <label class="am-radio-inline" style="margin-right:0rem">
+              <input type="radio" name="way" id="appr3" value="感谢信" data-am-ucheck>
               感谢信
             </label>
-            <label class="am-radio-inline">
-              <input type="radio" name="way" value="4" data-am-ucheck>
-              啥都行
+            </div>
+            <div class="am-u-sm-7">
+            <label class="am-radio-inline" style="margin-right:0rem">
+              <input type="radio" name="way" id="custom" value="啥都行" data-am-ucheck>
+              我想
             </label>
+                <label id="noCustom" style="display:inline-block;">________</label>
+               <input type='text'id="customer" name="custom" style="width: 4rem; display:none;" required/>
+            </div>
+            <script type="text/javascript">
+              $("#custom").click(function(){
+                  $("#customer").attr("style","width: 5rem; display:inline-block;");
+                  $("#noCustom").attr("style","display:none;");
+              });
+              $("#appr1,#appr2,#appr3").click(function(){
+                  $("#customer").attr("style","width: 5rem; display:none;");
+                  $("#noCustom").attr("style","display:inline-block;");
+              });
+            </script>
+            </div>
           </div>
       </div>
     </div>

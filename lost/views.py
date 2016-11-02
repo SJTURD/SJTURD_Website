@@ -14,8 +14,9 @@ from card.views import card_list
 
 def before_upload(request):
     params = request.GET
-    if int(params['selector1']) == -1:
-        return redirect(card_list)
+    if 'selector1' in params.keys():
+        if int(params['selector1']) == -1:
+            return redirect(card_list)
 
     context = {
         'MEDIA_URL': settings.MEDIA_URL,
@@ -135,11 +136,12 @@ def get_item(request):
     data = {
         'id': data.pk,
         'img': data.picture.name,
-        'key': ['类别', '丢失地点', '备注', '联系方式'],
+        'key': ['类别', '丢失地点', '备注', '联系方式','答谢方式'],
         '类别': data.category.name,
         '丢失地点': data.location.name,
         '备注': data.remark,
         '联系方式': data.phone,
+        '答谢方式': data.thankDetail,
     }
 
     return JsonResponse(data)
@@ -190,6 +192,7 @@ class UploadForm(forms.Form):
     img = forms.FileField()
     appr = forms.BooleanField()
     way = forms.CharField()
+    custom = forms.CharField()
 
 
 def upload(request):
@@ -207,8 +210,12 @@ def upload(request):
             item.picture = form.cleaned_data['img']
             if (form.cleaned_data['appr'] == 0):
                 item.thank = "0"
+            elif(form.cleaned_data['way']== "啥都行"):
+                item.thank = "1"
+                item.thankDetail= form.cleaned_data['custom']
             else:
-                item.thank = form.cleaned_data['way']
+                item.thank = "1"
+                item.thankDetail= form.cleaned_data['way']
             item.save()
             message = "上传成功~"
             model_id = item.id
