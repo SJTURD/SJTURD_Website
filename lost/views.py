@@ -14,8 +14,9 @@ from card.views import card_list
 
 def before_upload(request):
     params = request.GET
-    if int(params['selector1']) == -1:
-        return redirect(card_list)
+    if 'selector1' in params.keys():
+        if int(params['selector1']) == -1:
+            return redirect(card_list)
 
     context = {
         'MEDIA_URL': settings.MEDIA_URL,
@@ -191,6 +192,7 @@ class UploadForm(forms.Form):
     img = forms.FileField()
     appr = forms.BooleanField()
     way = forms.CharField()
+    custom = forms.CharField()
 
 
 def upload(request):
@@ -208,6 +210,9 @@ def upload(request):
             item.picture = form.cleaned_data['img']
             if (form.cleaned_data['appr'] == 0):
                 item.thank = "0"
+            elif(form.cleaned_data['way']== "啥都行"):
+                item.thank = "1"
+                item.thankDetail= form.cleaned_data['custom']
             else:
                 item.thank = "1"
                 item.thankDetail= form.cleaned_data['way']
