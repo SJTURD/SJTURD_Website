@@ -136,15 +136,15 @@
               我想
             </label>
                 <label id="noCustom" style="display:inline-block;">________</label>
-               <input type='text'id="customer" name="custom" style="width: 6rem; display:none;" required/>
+               <input type='text'id="customer" name="custom" style="width: 4rem; display:none;" required/>
             </div>
             <script type="text/javascript">
               $("#custom").click(function(){
-                  $("#customer").attr("style","width: 6rem; display:inline-block;");
+                  $("#customer").attr("style","width: 5rem; display:inline-block;");
                   $("#noCustom").attr("style","display:none;");
               });
               $("#appr1,#appr2,#appr3").click(function(){
-                  $("#customer").attr("style","width: 6rem; display:none;");
+                  $("#customer").attr("style","width: 5rem; display:none;");
                   $("#noCustom").attr("style","display:inline-block;");
               });
             </script>
