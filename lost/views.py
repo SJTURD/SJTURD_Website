@@ -190,7 +190,7 @@ class UploadForm(forms.Form):
     phone=forms.CharField()
     remark = forms.CharField(required=False)
     img = forms.FileField()
-    appr = forms.IntergerField()
+    appr = forms.IntegerField()
     way = forms.CharField()
     custom = forms.CharField()
 
