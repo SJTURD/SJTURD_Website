@@ -190,7 +190,7 @@ class UploadForm(forms.Form):
     phone=forms.CharField()
     remark = forms.CharField(required=False)
     img = forms.FileField()
-    appr = forms.BooleanField()
+    appr = forms.IntergerField()
     way = forms.CharField()
     custom = forms.CharField()
 
@@ -208,7 +208,7 @@ def upload(request):
             item.phone = form.cleaned_data['phone']
             item.remark = form.cleaned_data['remark']
             item.picture = form.cleaned_data['img']
-            if (form.cleaned_data['appr'] == 0):
+            if (form.cleaned_data['appr'] == 2):
                 item.thank = "0"
             elif(form.cleaned_data['way']== "啥都行"):
                 item.thank = "1"
