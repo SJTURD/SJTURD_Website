@@ -1,7 +1,3 @@
-body{
-  font-family: Microsoft YaHei,sans-serif;
-}
-
 .itemPic {
   max-width: 95%;
   margin-left: auto;
@@ -9,8 +5,9 @@ body{
 }
 
 .right_field {
-  color: #eeeeee;
-  padding-right: 0.5rem;
+  color: #aaaaaa;
+  padding-right: 0.2rem;
+  padding-left: 0.2rem;
 }
 
 .am-form-select {
@@ -121,7 +118,7 @@ body{
   width: 35%;
   height: 3.5rem;
   margin: 0;
-  padding 0;
+  padding: 0;
   border-bottom: 1px solid rgb(204, 204, 204);
   display: inline-block;
   text-align: center;

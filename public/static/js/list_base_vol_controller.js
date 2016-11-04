@@ -42,6 +42,7 @@ var renderData = function(data) {
         .attr("class", "item am-thumbnail")
         .append($("<img/>")
           .attr("src", MEDIA_URL + value.img)
+          .attr("onerror", "this.src='/static/img/error.png'")
           .attr("class", "itemPic am-img-thumbnail"))
         .append($("<div></div>")
           .attr("class", "itemDetail am-thumbnail-caption")
