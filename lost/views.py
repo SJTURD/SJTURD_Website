@@ -210,6 +210,7 @@ def upload(request):
             item.picture = form.cleaned_data['img']
             if (form.cleaned_data['appr'] == 2):
                 item.thank = "0"
+                item.thankDetail= "在心中默默感谢！~"
             elif(form.cleaned_data['way']== "啥都行"):
                 item.thank = "1"
                 item.thankDetail= form.cleaned_data['custom']
