@@ -17,9 +17,9 @@ var renderData = function(data) {
         $("<tr></tr>")
           .attr("id", "lfoffice_" + value.id)
           .append($("<td></td>")
-            .append(value.name))
-          .append($("<td></td>")
             .append(value.location))
+          .append($("<td></td>")
+            .append(value.remark))
       )
     }
   });

@@ -121,7 +121,7 @@ def get_item(request):
         '类别': data.category.name,
         '发现地点': data.location.name,
         '详细说明': data.detail,
-        '现所在地': data.lfoffice.name,
+        '现所在地': data.lfoffice.detail,
     }
 
     return JsonResponse(data)
